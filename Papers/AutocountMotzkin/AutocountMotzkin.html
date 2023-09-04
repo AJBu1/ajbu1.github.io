@@ -1,0 +1,356 @@
+
+
+<html>
+
+<head>
+
+<title>
+
+Automated Counting of Restricted Motzkin Paths</title>
+
+</head>
+
+
+
+
+
+<body>
+
+<Font Size=+3>
+
+<B>
+
+<Font Color=Red>
+
+<Font size=+5>
+
+<center>
+
+Automated Counting of Restricted Motzkin Paths <br>
+By <a href ="../../index.html">AJ Bu</a> </center>
+
+<P>
+
+
+<hr>
+
+<A HREF
+
+="http://ecajournal.haifa.ac.il/Volume2021/ECA2021_S2A12.pdf">
+
+PDF</A> &nbsp;
+
+
+<hr>
+
+</font>
+
+</font>
+
+<P>
+
+Published: February 19, 2021 in Volume 1 (2021), Number 2 of the journal <a href="http://ecajournal.haifa.ac.il/#journal-archive"> Enumerative Combinatorics and Applications </a>
+
+
+<P>
+
+Motzkin paths are simple yet important combinatorial objects. In this paper, we consider families of Motzkin paths with restrictions on 
+peak heights, valley heights, upward-run lengths, downward-run lengths, and flat-run lengths. This paper presents two fully automated methods for 
+enumerating the paths of such families. The first method uses numeric dynamic programming. While this method often times works, it can be slow and 
+may not work for larger problems. The second method uses symbolic dynamic programming to solve such problems. 
+These methods are implemented in the maple packages accompanying this article.
+
+
+
+
+<hr>
+
+<P>
+
+<h2>Maple packages </h2>
+
+<UL>
+
+<LI>
+
+<A HREF="Motzkin.txt">Motzkin.txt</A>
+
+<P>
+
+<LI>
+
+<A HREF="MotzkinClever.txt">MotkzinClever.txt</A>
+
+<P>
+
+
+
+</UL>
+
+
+
+<br>
+
+<P>
+
+<hr>
+
+<P>
+
+<h2>Sample Input and Output Files for Motzkin.txt</h2>
+
+<P
+
+<UL>
+
+
+
+
+
+<LI>
+
+Here, a(n) is the number of Motzkin paths of length n avoiding peak heights in A
+and valley heights in B. This provides sample outputs of
+the first 101 terms of the sequence and the algebraic equation satisfied by the generating function for various 
+sets finite sets A and B of non-negative integers.
+
+<br>
+
+The <A HREF="./input/Finite Peak Valley input.txt">input</A> gives you 
+
+the <A HREF="./output/Finite Peak Valley output.txt">output</A>.
+
+<P>
+
+
+
+
+
+<LI>
+Here, a(n) is the number of Motzkin paths of length n avoiding upward-runs of lengths in C, downward-runs with lengths in D,
+and flat-runs with lengths in E.
+This provides sample outputs of
+the first 101 terms of the sequence and the algebraic equation satisfied by the generating function for various 
+sets finite sets C,D, and E of non-negative integers..
+
+<br>
+
+The <A HREF="./input/Finite Runs input.txt">input</A> gives you 
+
+the <A HREF="./output/Finite Runs output.txt">output</A>.
+
+<P>
+
+
+
+<LI>
+
+Here, a(n) is the number of Motzkin paths of length n avoiding avoiding peak heights in A
+and valley heights in B, upward-runs of lengths in C, downward-runs with lengths in D,
+and flat-runs with lengths in E. This provides sample outputs of
+the first 101 terms of the sequence and the algebraic equation satisfied by the generating function for various 
+sets finite sets A,B,C,D, and E of non-negative integers.
+<br>
+
+The <A HREF="./input/Finite input.txt">input</A> gives you 
+
+the <A HREF="./output/Finite output.txt">output</A>.
+
+<P>
+
+
+
+<LI>
+
+Here, a(n) is the number of Motzkin paths of length n avoiding peak heights in A
+and valley heights in B. This provides sample outputs of
+the first 101 terms of the sequence and the algebraic equation satisfied by the generating function for various sets 
+A and B containing linear expressions of the form c1*r+c2 where c1 and c2 are 
+non-negative integers and r is a variable defined over the non-negative integers.
+
+<br>
+
+The <A HREF="./input/Lin Peak Valley input.txt">input</A> gives you 
+
+the <A HREF="./output/Lin Peak Valley output.txt">output</A>.
+
+<P>
+
+
+
+
+
+<LI>
+Here, a(n) is the number of Motzkin paths of length n avoiding upward-runs of lengths in C, downward-runs with lengths in D,
+and flat-runs with lengths in E. 
+This provides sample outputs of
+the first 101 terms of the sequence and the algebraic equation satisfied by the generating function for various sets 
+C, D, and E containing linear expressions of the form c1*r+c2 where c1 and c2 are 
+non-negative integers and r is a variable defined over the non-negative integers.
+
+<br>
+
+The <A HREF="./input/Lin Runs input.txt">input</A> gives you 
+
+the <A HREF="./output/Lin Runs output.txt">output</A>.
+
+<P>
+
+
+
+<LI>
+
+Here, a(n) is the number of Motzkin paths of length n avoiding avoiding peak heights in A
+and valley heights in B, upward-runs of lengths in C, downward-runs with lengths in D,
+and flat-runs with lengths in E. This provides sample outputs of
+the first 101 terms of the sequence and the algebraic equation satisfied by the generating function for various sets 
+A, B, C, D, and E containing linear expressions of the form c1*r+c2 where c1 and c2 are 
+non-negative integers and r is a variable defined over the non-negative integers.
+<br>
+
+The <A HREF="./input/Lin input.txt">input</A> gives you 
+
+the <A HREF="./output/Lin output.txt">output</A>.
+
+<P>
+
+
+</UL>
+
+
+
+<P>
+
+<hr>
+
+<hr>
+
+<P>
+
+<h2>Sample Input and Output Files for MotzkinClever.txt</h2>
+
+<P>
+
+<UL>
+
+
+
+<LI>
+
+This provides the algebraic equation satisfied by the ordinary generating function for the sequence enumerating Motzkin paths 
+that avoid peak heights in A and valley heights in B for various finite sets A and B of non-negative integers.
+
+<br>
+
+The <A HREF="./input/Clev Finite Peak Valley input.txt">input</A> gives you 
+
+the <A HREF="./output/Clev Finite Peak Valley output.txt">output</A>.
+
+<P>
+
+
+
+
+
+<LI>
+This provides the algebraic equation satisfied by the ordinary generating function for the sequence enumerating Motzkin paths 
+that avoid upward-runs of lengths in C, downward-runs with lengths in D,
+and flat-runs with lengths in E for various finite sets C,D, and E of non-negative integers.
+
+<br>
+
+The <A HREF="./input/Clev Finite Runs input.txt">input</A> gives you 
+
+the <A HREF="./output/Clev Finite Runs output.txt">output</A>.
+
+<P>
+
+
+
+<LI>
+
+This provides the algebraic equation satisfied by the ordinary generating function for the sequence enumerating Motzkin paths 
+that avoid peak heights in A and valley heights in B for various sets A and B containing linear expressions of the form c1*r+c2 where 
+c1 and c2 are non-negative 
+integers and r is a variable defined over the non-negative integers.
+
+<br>
+
+The <A HREF="./input/Clev Lin Peak Valley input.txt">input</A> gives you 
+
+the <A HREF="./output/Clev Lin Peak Valley output.txt">output</A>.
+
+<P>
+
+
+
+
+
+<LI>
+This provides the algebraic equation satisfied by the ordinary generating function for the sequence enumerating Motzkin paths 
+that avoid upward-runs of lengths in C, downward-runs with lengths in D,
+and flat-runs with lengths in E for various sets C,D, and E containing linear expressions of the form c1*r+c2 where c1 and c2 are non-negative 
+integers and r is a variable defined over the non-negative integers. 
+
+<br>
+
+The <A HREF="./input/Clev Lin Runs input.txt">input</A> gives you 
+
+the <A HREF="./output/Clev Lin Runs output.txt">output</A>.
+
+<P>
+
+
+
+
+</UL>
+
+
+
+<hr>
+
+
+
+
+
+
+<A HREF
+
+
+
+="../../papers.html">
+
+
+
+AJ Bu's Papers
+
+
+
+</A>
+
+
+
+<P><A HREF
+
+
+
+="../../index.html">
+
+
+
+AJ Bu's Home Page
+
+
+
+</A>
+
+
+
+
+
+
+
+
+</body>
+
+</html>
