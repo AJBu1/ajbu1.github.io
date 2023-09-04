@@ -1,0 +1,178 @@
+read `MotzkinClever.txt`:
+
+print(`Here are examples with restrictions on run lengths`):
+print(``):
+print(``):
+print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n`):
+eq:=fCDE({},{},{},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No upward run can have length in {1}`):
+eq:=fCDE({1},{},{},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No upward run can have length in {1,2}`):
+eq:=fCDE({1,2},{},{},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No upward run can have length in {1,2,3}`):
+eq:=fCDE({1,2,3},{},{},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No downward run can have length in {1,2}`):
+eq:=fCDE({},{1,2},{},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No flat run can have length in {1}`):
+eq:=fCDE({},{},{1},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No flat run can have length in {1,2}`):
+eq:=fCDE({},{},{1,2},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No upward run can have length in {1} and no flat run can have length in {1}`):
+eq:=fCDE({1},{},{1},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No upward run can have length in {1,2} and no flat run can have length in {1}`):
+eq:=fCDE({1,2},{},{1},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No upward run can have length in {1} and no flat run can have length in {1,2}`):
+eq:=fCDE({1},{},{1,2},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No upward run can have length in {1,2} and no flat run can have length in {1,2}`):
+eq:=fCDE({1,2},{},{1,2},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No upward run can have length in {1}, no downward run can have length in {1}, and no flat run can have length {1}`):
+eq:=fCDE({1},{1},{1},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No upward run can have length in {1,2} and no flat run can have length {2,3}`):
+eq:=fCDE({1,2},{},{2,3},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
