@@ -1,0 +1,496 @@
+######################################################################
+## BounceArea.txt: Save this file as  BounceArea.txt to use it,      #
+# stay in the                                                        #
+## same directory, get into Maple (by typing: maple <Enter> )        #
+#then type: read `AreaBounce.txt`: <Enter>                           #
+## Then follow the instructions given there                          #
+##                                                                   #
+## Written by AJ Bu  and Doron Zeilberger, Rutgers University ,      #
+##  DoronZeil@gmail.com      .                                       # 
+######################################################################
+
+with(combinat):
+
+Digits:=100:
+
+print(`First Written: July 2022: tested for Maple 20  `):
+print():
+print(`This is BounceArea.txt, A Maple package`):
+print(`accompanying AJ Bu and Doron Zeilberger's  article: `):
+print(`Using Symbolic Computation to Explore Generalized Dyck Paths and Their Areas`):
+
+print(`-------------------------------`):
+
+print(`-------------------------------`):
+print():
+print(`The most current version is available on WWW at:`):
+print(` http://www.math.rutgers.edu/~zeilberg/tokhniot/BounceArea.txt .`):
+print(`Please report all bugs to: DoronZeil at gmail dot com .`):
+print():
+print(`-------------------------------`):
+print(`For general help, and a list of the MAIN functions,`):
+print(` type "ezra();". For specific help type "ezra(procedure_name);" `):
+
+print(`-------------------------------`):
+print(`For a list of the supporting functions type: ezra1();`):
+print(`For help with a specific procedure, type "ezra(procedure_name);"`):
+print():
+ print(`-------------------------------`):
+
+
+ezra1:=proc()
+if args=NULL then
+
+print(` The supporting procedures are: `):
+print(` Area, AreaGF, Bo, BoPath, BoSeq, BoPSeq, Combs, Pl,PlBo, AreaGf, NextPt, PeakSeq, WtCo, WtoP `):
+
+else
+ ezra(args):
+fi:
+end:
+
+ezra:=proc()
+
+if args=NULL then
+
+print(` BounceArea.txt: A Maple package for experimenting with the Area and Bounce Statistics on Dyck Paths`):
+print(`The main procedures are : ABgf, Alpha2, DW, Fn, Hn, RandW   `):
+
+
+
+elif nargs=1 and args[1]=ABgf  then
+print(`ABgf(n,q,t): The weight-enumerator of Dyck paths of length n according to the weight q^Area(W)*t^Bo(W) where Bo(W) is the bounce of W. DONE DIRECTLY, rather than using Fn(n,q,t) or Hn(n,q,t).Try:`):
+print(`ABgf(5,q,t);`):
+
+elif nargs=1 and args[1]=Alpha2  then
+print(`Alpha2(f,x1,x2,K): The list of lists L such that if f(x1,x2) is some enumerating generating function L[i+1][j+1] is the (i,j) scaled moment except`):
+print(`that L[1][2] and L[2][1] are the averages and L[1][3], L[3][1] are strandard deviations`):
+
+elif nargs=1 and args[1]=Area  then
+print(`Area(W): The area of the Dyck path W. Try: `):
+print(`Area([1,1,1,-1,-1,1,1,-1,-1,-1]);`):
+
+
+elif nargs=1 and args[1]=AreaGF  then
+print(`AreaGF(n,q): The area generating function for Dyck path of semi-length n. Try: `):
+print(`AreaGF(5,q);`):
+
+
+elif nargs=1 and args[1]=Bo  then
+print(`Bo(W): The Bounce of the Dyck path W. Try: `):
+print(`Bo([1,1,1,-1,-1,1,1,-1,-1,-1]);`):
+
+elif nargs=1 and args[1]=BoPath  then
+print(`BoPath(W), the bounce path of W. Try:`):
+print(`BoPath([1,1,-1,-1]);`):
+
+elif nargs=1 and args[1]=BoSeq  then
+print(`BoSeq(W): The bounce Sequence of the Dyck work W`):
+
+
+elif nargs=1 and args[1]=BoPSeq  then
+print(`BoPSeq(W): The co-bounce Sequence of the Dyck work W`):
+
+
+elif nargs=1 and args[1]=Comps  then
+print(`Comps(n,k): The set of compositions of n into k parts. Try:`):
+print(`Comps(10,3);`):
+
+
+elif nargs=1 and args[1]=DW  then
+print(`DW(n): The set of Dyck words of semi-length n. Try:`):
+print(` DW(5); `):
+
+
+elif nargs=1 and args[1]=Fnk  then
+print(`Fnk(n,q,t): Implementing Theorem 13  Jim Haglund's formula Theorem 13 (p. 25) in: "Catalan Paths and q,t-Enumeration. Try:`):
+print(`Fnk(4,2,q,t):`):
+
+elif nargs=1 and args[1]=Fn  then
+print(`Fn(n,q,t): ABgf(n,q,t) via Jim Haglund's formula Theorem 13 (p. 25) in: "Catalan Paths and q,t-Enumeration. Try:`):
+print(`Fn(4,q,t):`):
+
+
+
+elif nargs=1 and args[1]=Hnk  then
+print(`Hnk(n,q,t): Implementing Corollary 6,Jim Haglund's formula Theorem 13 (p. 25) in: "Catalan Paths and q,t-Enumeration. the contribution from compsoitions into k parts. Try:`):
+print(`Hnk(4,2,q,t):`):
+
+elif nargs=1 and args[1]=Hn  then
+print(`Hn(n,q,t): ABgf(n,q,t) via Jim Haglund's Corollary 6 (p. 25) in: "Catalan Paths and q,t-Enumeration. Try:`):
+print(`Hn(4,q,t):`):
+
+
+elif nargs=1 and args[1]=NextPt  then
+print(`NextPt(P,a): Given a path and an integer a finds the  b such that if you take a bliiard ball starting at (a,0) and hit the path you would come to (b,0). Try: `):
+print(`NextPt(WtoP([1,-1,1,-1,1,-1]),0);`):
+
+elif nargs=1 and args[1]=PeakSeq  then
+print(`PeakSeq(W): The sequence of projections of the peaks of W on the x-axis divided by 2, except for the last peak. Note that  BoPseq(W)	is a subsequence. Try:`):
+print(`PeakSeq([1,1,-1,-1,1,1,-1,-1]);`):
+
+elif nargs=1 and args[1]=Pl  then
+print(`Pl(W): plots the path of the Dyck word W. Try:`):
+print(`Pl([1,1,1,-1,-1,1,1,-1,-1,-1]);`):
+
+
+
+elif nargs=1 and args[1]=PlBo  then
+print(`PlBo(W,eps): plots the path of the Dyck word W along with the Bounce path with epsilon difference. Try:`):
+print(`PlBo([1,1,1,-1,-1,1,1,-1,-1,-1],0.1);`):
+
+elif nargs=1 and args[1]=RandW  then
+print(`RandW(n): A random Dyck path of semi-length b. Try:`):
+print(`RandW(50);`):
+
+elif nargs=1 and args[1]=WtCo  then
+print(`WtCo(A,q,t):  The weight of the composition A , i.e. the summand in Eq. (91) of Haglund's paper. Try:`):
+print(`WtCo([2,3],q,t);`):
+
+elif nargs=1 and args[1]=WtoP  then
+print(`WtoP(W): The path corresponding to the Dyck work W. Try: `):
+print(`WtoP([1,1,-1,-1]);`):
+
+else
+ print(`There is no such thing as`, args):
+
+fi:
+
+
+
+end:
+
+
+Pl:=proc(W): plot(WtoP(W),scaling=constrained):end:
+
+DW:=proc(n)  local k,gu,gu1,gu2,g1,g2:
+option remember:
+
+if n=0 then
+ RETURN({[]}):
+fi:
+
+gu:={}:
+
+for k from 1 to n do
+ gu1:=DW(k-1):
+ gu2:=DW(n-k):
+ gu:=gu union {seq(seq([1,op(g1),-1,op(g2)],g1 in gu1),g2 in gu2)}:
+od:
+gu:
+end:
+
+#WtoP(W): The path corresponding to the Dyck work W. Try: 
+#WtoP([1,1,-1,-1]);
+WtoP:=proc(W) local P,i:
+P:=[[0,0]]:
+for i from 1 to nops(W) do
+ P:=[op(P),P[-1]+[1,W[i]]]:
+od:
+P:
+end:
+
+
+
+
+#Area(W)
+Area:=proc(W) local i,P:
+P:=WtoP(W):
+(add(P[i][2],i=2..nops(P)-1)-nops(W)/2)/2:
+end:
+
+AreaGF:=proc(n,q) local gu,gu1:
+gu:=DW(n):
+
+add(q^Area(gu1),gu1 in gu):
+
+end:
+
+
+
+#NextPt(P,a): Given a path and an integer a finds the  b such that if you take a bliiard ball starting at (a,0) and hit the path you would come to (b,0). Try
+#NextP(WtoP([1,-1,1,-1,1,-1]),
+NextPt:=proc(P,a) local i,j:
+
+for i from 0  while not member([a+i,i],P) do od:
+for j from i while member([a+j,j],P) do od:
+a+2*(j-1):
+
+end:
+
+#Bo(W): The bounce of the Dyck work W
+Bo:=proc(W) local n,P,a,co:
+n:=nops(W)/2:
+P:=WtoP(W):
+co:=0:
+a:=NextPt(P,0)  :
+
+while a<2*n do
+ co:=co+n-a/2:
+a:=NextPt(P,a):
+od:
+
+co:
+end:
+
+
+
+
+#ABgf(n,q,t): The weight-enumerator of Dyck paths of length n according to the weight q^Area(W)*t^Bo(W) where Bo(W) is the bounce of W. DONE DIRECTLY, rather than using Gn(n,q,t) or Hn(n,q,t).Try:
+#ABgf(5,q,t);
+ABgf:=proc(n,q,t) local gu,gu1:
+gu:=DW(n):
+
+add(q^Area(gu1)*t^Bo(gu1),gu1 in gu):
+
+end:
+
+
+#BoSeq(W): The bounce Sequence of the Dyck work W
+BoSeq:=proc(W) local n,P,a,PI:
+n:=nops(W)/2:
+P:=WtoP(W):
+
+a:=NextPt(P,0)  :
+PI:=[]:
+while a<2*n do
+PI:=[op(PI),n-a/2]:
+a:=NextPt(P,a):
+od:
+
+PI:
+end:
+
+
+#BoPSeq(W): The bounce Pre-Sequence of the Dyck work W
+BoPSeq:=proc(W) local n,P,a,PI:
+n:=nops(W)/2:
+P:=WtoP(W):
+
+a:=NextPt(P,0)  :
+PI:=[]:
+while a<2*n do
+PI:=[op(PI),a/2]:
+a:=NextPt(P,a):
+od:
+
+PI:
+end:
+
+
+#PeakSeq(W): The sequence of projections of W on the x-axis. Try:
+#PeakSeq([1,1,-1,-1,1,1,-1,-1]);
+PeakSeq:=proc(W) local P,i,gu:
+P:=WtoP(W):
+gu:=[]:
+
+for i from 2 to nops(P)-1 do
+ if P[i-1][2]<P[i][2] and P[i+1][2]<P[i][2] then
+  gu:=[op(gu), (P[i][1]+P[i][2])/2]:
+ fi:
+od:
+
+[op(1..nops(gu)-1,gu)]:
+
+end:
+
+
+
+Cn:=proc(n) option remember: binomial(2*n,n)/(n+1):end:
+
+#RandW(n): A random Dyck path of semi-length b. Try:
+#RandW(50);
+RandW:=proc(n) local gu,i,r,j,W1,W2:
+if n=0 then
+ RETURN([]):
+fi:
+
+
+gu:=[seq(Cn(i-1)*Cn(n-i),i=1..n)]:
+if convert(gu,`+`)<>Cn(n) then
+ RETURN(FAIL):
+fi:
+
+r:=rand(1..Cn(n))():
+
+for i from 1 to nops(gu) while add(gu[j],j=1..i)<r do od:
+W1:=RandW(i-1):
+
+W2:=RandW(n-i):
+
+[1,op(W1),-1,op(W2)]:
+
+end:
+
+
+#Comps(n,b): The set of compositions of n into b parts
+Comps:=proc(n,b) local gu,n1,lu,lu1:
+option remember:
+if b=0 then
+ if n=0 then
+  RETURN({[]}):
+ else
+  RETURN({}):
+ fi:
+fi:
+
+gu:={}:
+
+for n1 from 1 to n do
+ lu:=Comps(n-n1,b-1):
+ gu:=gu union {seq([n1,op(lu1)],lu1 in lu)}:
+od:
+
+gu:
+
+end:
+
+
+#qBin(q,a,b): The q-binomial coefficients 
+qBin:=proc(q,a,b) local i:
+	normal(mul(1-q^i,i=a-b+1..a)/mul(1-q^i,i=1..b)):
+end:
+
+
+#WtCo(A,q,t):  The weight of the composition A , i.e. the summand in Eq. (91) of Haglund's paper
+WtCo:=proc(A,q,t) local i:
+expand(t^add((i-1)*A[i],i=1..nops(A))*q^add(binomial(A[i],2),i=1..nops(A))*mul(qBin(q,A[i]+A[i+1]-1,A[i+1]),i=1..nops(A)-1)):
+end:
+
+
+Hnb:=proc(n,b,q,t) local gu,gu1:
+gu:=Comps(n,b):
+add(WtCo(gu1,q,t), gu1 in gu):
+end:
+
+#Hn(n,q,t)
+Hn:=proc(n,q,t) local b:
+add(Hnb(n,b,q,t),b=1..n):
+end:
+
+
+#Fnk(n,k,q,t): checks theorem 3.4 in The q, t-Catalan Numbers and the Space of Diagonal Harmonics
+Fnk:=proc(n,k,q,t) local r:
+option remember:
+if n=0 then
+ if k=0 then
+  RETURN(1):
+else
+ RETURN(0):
+fi:
+fi:
+
+if k<=0 then
+ RETURN(0):
+fi:
+
+	expand(normal(add(qBin(q,r+k-1,r)*t^(n-k)*q^binomial(k,2)*Fnk(n-k,r,q,t),r=0..n-k))):
+
+end:
+
+#Fn(n,q,t): ABgf(n,q,t) via Jim Haglund's formula Theorem 13 (p. 25) in: "Catalan Paths and q,t-Enumeration. Try:
+#Fn(4,q,t):
+Fn:=proc(n,q,t) local k: add(Fnk(n,k,q,t),k=0..n):end:
+
+
+
+
+#NextPts(P,a): Given a path and an integer a finds the  b such that if you take a bliiard ball starting at (a,0) and hit the path you would come to (b,0). Try
+#NextPs(WtoP([1,-1,1,-1,1,-1]),
+NextPts:=proc(P,a) local i,j:
+
+for i from 0  while not member([a+i,i],P) do od:
+for j from i while member([a+j,j],P) do od:
+
+[[a+j-1,j-1],[a+2*(j-1),0]]:
+end:
+
+#BoPath(W), the bounce path of W. Try:
+#BoPath([1,1,-1,-1]);
+BoPath:=proc(W) local n,P,gu,P1,lu:
+n:=nops(W)/2:
+P:=WtoP(W):
+
+gu:=[[0,0]]:
+P1:=[0,0]:
+while P1<>[2*n,0] do
+ lu:=NextPts(P,P1[1]):
+ gu:=[op(gu),op(lu)]:
+ P1:=lu[2]:
+
+
+od:
+
+gu:
+
+end:
+
+
+
+
+
+
+PlBo:=proc(W,eps) local Peps,i:
+Peps:=BoPath(W):
+Peps:=[seq(Peps[i]+[eps,eps],i=1..nops(Peps))]:
+plot([WtoP(W),Peps],color=[blue,red],scaling=constrained):
+end:
+
+
+ez:=proc(D): print(`Drs(f,x1,x2,r,s); Alpha2(f,x1,x2,K) `): end:
+
+
+#Drs(f,x1,x2,r,s) (x1d/dx1)^r(x2d/dx2)^s f(x1,x2) at x1=1 x2=1
+
+Drs:=proc(f,x1,x2,r,s) local i,f1:
+f1:=f:
+
+for i from 1 to r do
+f1:=x1*diff(f1,x1):
+od:
+
+for i from 1 to s do
+f1:=x2*diff(f1,x2):
+od:
+subs({x1=1,x2=1},f1):
+end:
+
+#Alpha2(f,x1,x2,K): The list of lists L such that if f(x1,x2) is some enumerating generating function L[i+1][j+1] is the (i,j) scaled moment except
+#that L[1][2] and L[2][1] are the averages and L[1][3], L[3][1] are strandard deviations
+Alpha2:=proc(f,x1,x2,K) local f1,T,i,j,av1,av2,sd1,sd2:
+
+f1:=f/subs({x1=1,x2=1},f):
+
+av1:=subs({x1=1,x2=1},diff(f1,x1)):
+av2:=subs({x1=1,x2=1},diff(f1,x2)):
+T[0,0]:=1:
+T[1,0]:=av1:
+T[0,1]:=av2:
+
+f1:=f1/x1^av1/x2^av2:
+
+sd1:=sqrt(subs({x1=1,x2=1},x1*diff(x1*diff(f1,x1),x1))):
+
+sd2:=sqrt(subs({x1=1,x2=1},x2*diff(x2*diff(f1,x2),x2))):
+
+T[2,0]:=sd1:
+T[0,2]:=sd2:
+
+for i from 3 to K do
+ T[i,0]:=Drs(f1,x1,x2,i,0)/sd1^i:
+ T[0,i]:=Drs(f1,x1,x2,0,i)/sd2^i:
+od:
+for i from 1 to K do
+for j from 1 to K do
+T[i,j]:=Drs(f1,x1,x2,i,j)/sd1^i/sd2^j:
+od:
+od:
+
+evalf([seq([seq(T[i,j],j=0..K)],i=0..K)]):
+
+
+end:
+
+
+
+
