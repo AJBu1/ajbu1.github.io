@@ -1,0 +1,1622 @@
+#MotzkinClever.txt
+#This is the Motzkin analogue to Dr. Zeilberger's `DyckClever.txt`
+
+print(`For a list of procedures in this package, type Help();`):
+print(`For explanation of each procedure, type "WhatIs(procedure_name)"`):
+
+Help:=proc(): print(`ChildAB(A1,B1,x,Z)`, `fAB(A,B,x,P)`, `ChildCDE(STATE,x,Z)`, `fCDE(C,D,E,x,P)`, `Child(A,B,r,x,Z)`, `fABr(A,B,r,x,P)`, `ChildCDEr(STATE,r,Z,x)`,`fCDEr(C,D,E,r,x,P)` ):
+end:
+
+WhatIs:=proc(procedure):
+  if procedure=ChildAB then
+    print(`ChildAB(A1,B1,x,Z): inputs a pair of sets of non-negative integers A1,B1, and symbols x and Z`):
+    print(`Outputs their "children" A2 and B2, and the resulting equation.`):
+	
+  elif procedure=fAB then
+    print(`fAB(A,B,x,P): inputs sets of positive integers A, and B, and variables x and P`):
+	print(`and outputs a polynomial in x and P , let's call it F(x,P) s.t. `):
+	print(`if you plug-in for P the  ordinary generating function for the sequence of`):
+    print(`the number of Motzkin paths of length n with no peak-heights in A`):
+	print(`and no valley-heights in B, you would get 0.`):
+	
+  elif procedure=ChildCDE then
+    print(`ChildCDE(STATE,x,z): Inputs a state STATE=[C,C1,D,D1,E,E1,E2,IR] and symbols x and Z`):
+	print(`Outputs the equation statisfied by Z[STATE] and the set of children states that feature in the formula`):
+	
+  elif procedure=fCDE then
+    print(`fCDE(C,D,E,x,P): Inputs finite sets of positive integers C,D, and E and symbols x and P.`):
+    print(`Outputs the algebraic equation satisfied by the ordinary generating function, P(x), of the`):
+	print(`sequence enumerating Dyck paths with no upward runs in C, no downward runs in D,`):
+	print(`and no flat runs in E`):
+	
+  elif procedure=ChildABr then
+    print(`ChildAB(A1,B1,x,Z): inputs sets of linear affine expressions A, and B in the variable r, and symbols x and Z`):
+    print(`Outputs their "children" A2 and B2, and the resulting equation.`):
+	
+  elif procedure=fABr then
+    print(`fABr(A,B,r,x,P): inputs sets of linear affine expressions A, and B in the variable r, and variables x and P`):
+	print(`and outputs a polynomial in x and P , let's call it F(x,P) s.t. `):
+	print(`f you plug-in for P the  ordinary generating function for the sequence of the number of Motzkin`):
+    print(`paths of length n with no peak-heights in A and no valley-heights in B, you would get 0.`):
+	
+  elif procedure=ChildCDEr then
+    print(`ChildCDEr(STATE,r,Z,x): Inputs a state STATE=[C,C1,D,D1,E,E1_1,E1_2,IR], where C, C1, D, D1,E,E1_1,E1_2 are sets of arithmetical progressions.`):
+	print(`Outputs the equation satisfied by Z[STATE] and the set of children states that feature in the formula.`):
+
+  elif procedure=fCDEr then
+    print(`fCDE(C,D,E,x,P): inputs sets of linear affine expressions C, D, and E in the variable r, and symbols x and P.`):
+    print(`Outputs the algebraic equation satisfied by the ordinary generating function of the`):
+	print(`sequence enumerating Motzkin paths with no upward runs in the range of C, no downward runs in the range of D`):
+	print(`and no flat runs in the range of E`):
+fi:
+
+end:
+
+
+
+#ChildAB(A1,B1,x,Z): inputs a pair of sets of non-negative integers A1,B1, and symbols x and Z
+#Outputs their "children" A2 and B2, and the resulting equation. 
+ChildAB:=proc(A1,B1,x,Z) local A2,B2,eq,m:
+  if member(0,A1) then
+    A2:=A1 minus {0}:
+    B2:=B1:
+    eq:= Z[A1,B1]+1/(1-x)-Z[A2,B1]:
+
+  else
+    A2:={seq(m-1,m in A1)}:
+    B2:={seq(m-1,m in B1)} minus {-1}:
+
+    if member(0,B1) then
+      eq:=Z[A1,B1]-1/(1-x)-1/(1-x)^2 *x^2*Z[A2,B2]:
+
+    else
+      eq:=Z[A1,B1]-1/(1-x)-1/(1-x)*x^2*Z[A2,B2]*Z[A1,B1]:
+    fi:
+  fi:
+
+  [A2,B2,eq]:
+end:
+
+
+
+#fAB(A,B,x,P): inputs sets of positive integers A, and B, and variables x and P
+# and outputs a polynomial in x and P , let's call it F(x,P) such that
+#if you plug-in for P the  ordinary generating function for
+#the sequence the number of Motzkin paths of length n with no peak-heights in A 
+#and no valley-heights in B, you would get 0.
+
+
+fAB:= proc(A,B,x,P) local eq, var, var1, Z,i, A1, B1, mu, gu:
+  A1:=A:
+  B1:=B:
+  var:={}:
+  var1:={Z[A1,B1]}:
+  eq:={}:
+
+  while var1<>var do
+    var:=var1:
+    mu:=ChildAB(A1,B1,x,Z):
+    var1:=var1 union {Z[mu[1],mu[2]]}:
+    eq:=eq union {mu[3]}:
+    A1:=mu[1]:
+    B1:=mu[2]:
+  od:
+
+  var1:=var minus {Z[A,B]}:
+
+  gu:=eliminate(eq,var1)[2]:
+
+  if nops(gu)<>1 then
+    RETURN(FAIL):
+  fi:
+
+  gu:=gu[1]:
+
+  gu:=subs(Z[A,B]=P,gu):
+
+  add(factor(coeff(gu,P,i))*P^i,i=0..degree(gu,P)):
+end:
+
+
+#ChildCDE(STATE,x,z): Inputs a state STATE=[C,C1,D,D1,E,E1,E2,IR] and symbols x and Z
+#Outputs the equation statisfied by Z[STATE] and the set of children states that feature in the formula
+ChildCDE:= proc(STATE,x,Z) local C,C1,D,D1,E,E1_1,E1_2,eq,C2,D2,E2_1,E2_2, c,d,e,IR:
+	if nops(STATE)<>8 then 
+		RETURN(FAIL)
+	fi:
+	
+	C:=STATE[1]: C1:=STATE[2]: D:=STATE[3]: D1:=STATE[4]: E:=STATE[5]:  E1_1:=STATE[6]:  E1_2:=STATE[7]: IR:=STATE[8]:
+	
+	if member(0,C1) and member(0,E1_1) then
+		RETURN(FAIL):
+	fi:
+	
+	if member(0,D1) and member(0,E1_2) then
+		RETURN(FAIL):
+	fi:
+	
+	
+	if IR=0 then
+		#The paths restricted by [C,C1,D,D1,E,E1_1,E1_2,0] will either be (a) the empty set, (b) A path restricted by [C,C1,D,D1,E,E1_1,E1_2,1], 
+		#or (c) Leaves height multiple times and thus is the concatenating of paths restricted by [C,C1,D,D,E,E1_1,E,1],[C,C,D,D,E,E,E,0],[C,C,D,D1,E,E,E1_2,1]
+		eq:=Z[C,C1,D,D1,E,E1_1,E1_2,0]-Z[C,C1,D,D1,E,E1_1,E1_2,1]- Z[C,C1,D,D union {0},E,E1_1,E,1]*Z[C,C,D,D,E,E,E,0]*Z[C,C union {0},D,D1,E,E,E1_2,1]:
+		RETURN([eq,{[C,C1,D,D1,E,E1_1,E1_2,1],[C,C1,D,D union {0},E,E1_1,E,1],[C,C,D,D,E,E,E,0],[C,C union {0},D,D1,E,E,E1_2,1]}]):
+	fi:
+	
+	if IR=1 then
+		if member(0,E1_1) then
+		    E2_1:={seq(e-1, e in (E1_1 minus {0}) )}: 
+			eq:=Z[C,C1,D,D1,E,E1_1,E1_2,1]-x*Z[C,C,D,D1,E,E2_1,E1_2,1]:
+			RETURN([eq, {[C,C,D,D1,E,E2_1,E1_2,1]}]):
+		fi:
+		
+		if member(0,E1_2) then
+			E2_2:={seq(e-1, e in (E1_2 minus {0}))}: 
+			eq:=Z[C,C1,D,D1,E,E1_1,E1_2,1]-x*Z[C,C1,D,D,E,E1_1,E2_2,1]:
+			RETURN([eq, {[C,C1,D,D,E,E1_1,E2_2,1]}]):
+		fi:
+		
+		if member(0,C1) and member(0,D1) then 
+			C2:={seq(c-1, c in (C1 minus {0}) )}:
+			D2:={seq(d-1, d in (D1 minus {0}) )}:
+			eq:=Z[C,C1,D,D1,E,E1_1,E1_2,1]-x^2*Z[C,C2,D,D2,E,E,E,0]:
+			RETURN([eq, {[C,C2,D,D2,E,E,E,0]}]):
+		fi:	
+
+		if not member(0,C1) and not member (0,D1) then
+			eq:=Z[C,C1,D,D1,E,E1_1,E1_2,1]-Z[C,C1 union {0},D,D1,E,E1_1,E1_2,1]-Z[C,C1,D,D1,E,E1_1 union {0},E1_2,1]-1:
+			RETURN([eq,{[C,C1 union {0},D,D1,E,E1_1,E1_2,1],[C,C1,D,D1,E,E1_1 union {0},E1_2,1]}]):
+		fi:
+			
+		if not member(0,C1) then 
+			eq:=Z[C,C1,D,D1,E,E1_1,E1_2,1]-Z[C,C1 union {0},D,D1,E,E1_1,E1_2,1]-Z[C,C1,D,D1,E,E1_1 union {0},E1_2,1]:
+			RETURN([eq,{[C,C1 union {0},D,D1,E,E1_1,E1_2,1],[C,C1,D,D1,E,E1_1 union {0},E1_2,1]}]):
+		fi:
+		
+		if not member(0,D1) then 
+			eq:=Z[C,C1,D,D1,E,E1_1,E1_2,1]-Z[C,C1,D,D1 union {0},E,E1_1,E1_2,1]-Z[C,C1,D,D1,E,E1_1,E1_2 union {0},1]:
+			RETURN([eq,{[C,C1,D,D1 union {0},E,E1_1,E1_2,1],[C,C1,D,D1,E,E1_1,E1_2 union {0},1]}]):		
+		fi:
+		
+		print(`Something went wrong`):
+		
+  fi:       
+end:
+
+#fCDE(C,D,E,x,P): Inputs finite sets of positive integers C and D and symbols x and P.
+#Outputs the algebraic equation satisfied by the ordinary generating function, P(x), of the
+#sequence enumerating Dyck paths with no upward runs in C, no downward runs in D, and no flat runs in E.
+fCDE:= proc(C,D,E,x,P) local eq, gu, StillToDo, AlreadyDone,Z,a,STATE,var,var1,lu,gu1,i,i1:
+	AlreadyDone:={}:
+	StillToDo:={[C,C,D,D,E,E,E,0]}:
+	eq:={}:
+
+	if member(0,C) or member(0,D) then
+		RETURN(FAIL):
+	fi:
+	
+	while StillToDo<>{} do 
+		STATE:=StillToDo[1]:
+		AlreadyDone:=AlreadyDone union {STATE}:
+		gu:=ChildCDE(STATE,x,Z): 
+		eq:=eq union {gu[1]}: 
+		StillToDo:=(StillToDo union gu[2]) minus AlreadyDone: 
+	od: 
+	
+	var:={seq(Z[op(a)],a in AlreadyDone)}:
+	var1:=var minus {Z[C,C,D,D,E,E,E,0]}: 
+	var:=[op(var1),Z[C,C,D,D,E,E,E,0]]:  
+	gu:=subs(Z[C,C,D,D,E,E,E,0]=P,Groebner[Basis](eq,plex(op(var)))[1]): 
+	gu:=factor(gu):  
+	
+	if not type(gu,`*`) then
+		RETURN(gu):
+	fi:
+	
+	lu:=SeqABCDE({},{},C,D,E,30): 
+	lu:=add(lu[i]*x^(i-1),i=1..nops(lu)):
+	
+	for i from 1 to nops(gu) do
+		gu1:=op(i,gu): 
+		if {seq(coeff(taylor(subs(P=lu,gu1),x=0,31),x,i1),i1=0..30)}={0} then
+			gu1:=add(factor(coeff(gu1,P,i))*P^i,i=0..degree(gu1,P)):
+			RETURN(gu1):
+		fi:
+	od: 
+	
+	FAIL:
+end:
+
+#ChildABr(A1,B1,r,x,Z): inputs sets of linear affine expressions A1, and B1 in the variable r, and symbols x and Z`):
+#Outputs their "children" A2 and B2, and the resulting equation.
+ChildABr:= proc(A1,B1,r,x,Z) local A2,B2, eq, m, a1, b1:
+	if member(0,{seq(coeff(a1,r,0),a1 in A1)}) then
+		A2:={}:
+		for a1 in A1 do
+			if coeff(a1,r,0)=0 then
+				A2:=A2 union {subs(r=r+1,a1)}:
+			else
+				A2:=A2 union {a1}:
+			fi:
+		od:
+
+		B2:=B1:
+		eq:= Z[A1,B1]+1/(1-x)-Z[A2,B1]:
+	else
+		A2:={seq(m-1, m in A1)}:
+
+		if member(0,{seq(coeff(b1,r,0),b1 in B1)}) then
+			B2:={}:
+			for b1 in B1 do
+				if coeff(b1,r,0)=0 then
+					B2:=B2 union {subs(r=r+1,b1)}:
+				else
+					B2:=B2 union {b1}:
+				fi:
+			od:
+
+			B2:={seq(m-1, m in B2)}:
+			eq:=Z[A1,B1]-1/(1-x)-1/(1-x)^2 *x^2*Z[A2,B2]:
+		else
+
+			B2:={seq(m-1, m in B1)}:
+
+			eq:=Z[A1,B1]-1/(1-x)-1/(1-x)*x^2*Z[A2,B2]*Z[A1,B1]:
+		fi:
+	fi:
+	[A2,B2,eq]:
+end:
+
+#fABr(A,B,r,x,P): inputs sets of linear affine expressions A, and B in the variable r, and variables x and P
+# and outputs a polynomial in x and P , let's call it F(x,P) such that
+#if you plug-in for P the  ordinary generating function for
+#the sequence of the number of Motzkin paths of length n with no peak-heights in A 
+#and no valley-heights in B, you would get 0.
+fABr:=proc(A,B,r,x,P) local eq,var,var1,Z,A1,B1,mu,gu,i:
+	if not ( type(A,set)  and type(B,set) and type(r,symbol)) then
+		print(`Bad input`):
+		RETURN(FAIL):
+	fi:
+	
+	A1:=A:
+	B1:=B:
+	var:={}:
+	var1:={Z[A1,B1]}:
+	eq:={}:
+
+	while var1<>var do
+		var:=var1:
+		mu:=ChildABr(A1,B1,r,x,Z):
+		var1:=var1 union {Z[mu[1],mu[2]]}:
+		eq:=eq union {mu[3]}:
+		A1:=mu[1]:
+		B1:=mu[2]:
+	od:
+	
+	var1:=var minus {Z[A,B]}:
+	gu:=eliminate(eq,var1)[2]:
+	
+	if nops(gu)<>1 then
+		RETURN(FAIL):
+	fi:
+	
+	gu:=gu[1]:
+	gu:=subs(Z[A,B]=P,gu):
+	add(factor(coeff(gu,P,i))*P^i,i=0..degree(gu,P)):
+
+end:
+
+
+#ChildCDEr(STATE,r,Z,x): Inputs a state STATE=[C,C1,D,D1,E,E1_1,E1_2,IR], where C, C1, D, D1,E,E1_1,E1_2 are sets of arithmetical progressions.
+#Outputs the equation satisfied by Z[STATE] and the set of children states that feature in the
+#formula.
+ChildCDEr:=proc(STATE,r,Z,x) local C,C1,D,D1,E,E1_1, E1_2, eq,C2,D2,E2_1, E2_2, c,d,e, IR,c1,d1,e1:
+	if nops(STATE)<>8 then
+		RETURN(FAIL):
+	fi:
+
+	C:=STATE[1]: C1:=STATE[2]: D:=STATE[3]:D1:=STATE[4]: E:=STATE[5]: E1_1:=STATE[6]: E1_2:=STATE[7]: IR:=STATE[8]:
+
+	if member(0,{seq(coeff(c1,r,0), c1 in C1)}) and member(0,{seq(coeff(e1,r,0), e1 in E1_1)}) then
+		RETURN(FAIL):
+	fi:
+	
+	if member(0,{seq(coeff(d1,r,0), d1 in D1)}) and member(0,{seq(coeff(e1,r,0), e1 in E1_2)}) then	
+		RETURN(FAIL):
+	fi:
+	
+
+	if IR=0 then
+		eq:=Z[C,C1,D,D1,E,E1_1,E1_2,0]-Z[C,C1,D,D1,E,E1_1,E1_2,1]- Z[C,C1,D,D union {0},E,E1_1,E,1]*Z[C,C,D,D,E,E,E,0]*Z[C,C union {0},D,D1,E,E,E1_2,1]:
+		RETURN([eq,{[C,C1,D,D1,E,E1_1,E1_2,1],[C,C1,D,D union {0},E,E1_1,E,1],[C,C,D,D,E,E,E,0],[C,C union {0},D,D1,E,E,E1_2,1]}]):
+	fi:
+
+	if IR=1 then
+	E2_1:={}: E2_2:={}: C2:={}: D2:={}: 
+		if member(0,{seq(coeff(e1,r,0), e1 in E1_1)}) then
+			for e1 in E1_1 do
+				if coeff(e1,r,0)=0 then
+					E2_1:=E2_1 union {subs(r=r+1,e1)}:
+				else
+					E2_1:=E2_1 union {e1}:
+				fi:
+			od:
+			 E2_1:={seq(e-1, e in (E2_1 minus {0}))}:
+			eq:=Z[C,C1,D,D1,E,E1_1,E1_2,1]-x*Z[C,C,D,D1,E,E2_1,E1_2,1]:
+			RETURN([eq, {[C,C,D,D1,E,E2_1,E1_2,1]}]):
+		fi:
+		
+		if member(0,{seq(coeff(e1,r,0), e1 in E1_2)}) then
+			for e1 in E1_2 do
+				if coeff(e1,r,0)=0 then
+					E2_2:=E2_2 union {subs(r=r+1,e1)}:
+				else
+					E2_2:=E2_2 union {e1}:
+				fi:
+			od:
+			 E2_2:={seq(e-1, e in (E2_2  minus {0}))}:
+			eq:=Z[C,C1,D,D1,E,E1_1,E1_2,1]-x*Z[C,C1,D,D,E,E1_1,E2_2,1]:
+			RETURN([eq, {[C,C1,D,D,E,E1_1,E2_2,1]}]):
+		fi:
+		
+		if member(0,{seq(coeff(c1,r,0), c1 in C1)}) and member(0,{seq(coeff(d1,r,0), d1 in D1)}) then
+			for c1 in C1 do
+				if coeff(c1,r,0)=0 then
+					C2:=C2 union {subs(r=r+1,c1)}:
+				else
+					C2:=C2 union {c1}:
+				fi:
+			od:
+			
+			for d1 in D1 do
+				if coeff(d1,r,0)=0 then
+					D2:=D2 union {subs(r=r+1,d1)}:
+				else
+					D2:=D2 union {d1}:
+				fi:
+			od:
+			 C2:={seq(c-1, c in (C2 minus {0}) )}:
+			 D2:={seq(d-1, d in (D2  minus {0}))}:
+			eq:=Z[C,C1,D,D1,E,E1_1,E1_2,1]-x^2*Z[C,C2,D,D2,E,E,E,0]:
+			RETURN([eq, {[C,C2,D,D2,E,E,E,0]}]):
+		fi:	
+
+		if not member(0,{seq(coeff(c1,r,0), c1 in C1)}) and not member(0,{seq(coeff(d1,r,0), d1 in D1)}) then
+			eq:=Z[C,C1,D,D1,E,E1_1,E1_2,1]-Z[C,C1 union {0},D,D1,E,E1_1,E1_2,1]-Z[C,C1,D,D1,E,E1_1 union {0},E1_2,1]-1:
+			RETURN([eq,{[C,C1 union {0},D,D1,E,E1_1,E1_2,1],[C,C1,D,D1,E,E1_1 union {0},E1_2,1]}]):
+		fi:
+		
+		if not member(0,{seq(coeff(c1,r,0), c1 in C1)}) then
+			eq:=Z[C,C1,D,D1,E,E1_1,E1_2,1]-Z[C,C1 union {0},D,D1,E,E1_1,E1_2,1]-Z[C,C1,D,D1,E,E1_1 union {0},E1_2,1]:
+			RETURN([eq,{[C,C1 union {0},D,D1,E,E1_1,E1_2,1],[C,C1,D,D1,E,E1_1 union {0},E1_2,1]}]):
+		fi:
+		
+		if not member(0,{seq(coeff(d1,r,0), d1 in D1)}) then 
+			eq:=Z[C,C1,D,D1,E,E1_1,E1_2,1]-Z[C,C1,D,D1 union {0},E,E1_1,E1_2,1]-Z[C,C1,D,D1,E,E1_1,E1_2 union {0},1]:
+			RETURN([eq,{[C,C1,D,D1 union {0},E,E1_1,E1_2,1],[C,C1,D,D1,E,E1_1,E1_2 union {0},1]}]):		
+		fi:
+		
+		print(`Something went wrong`):
+	fi:
+end:	
+
+#fCDEr(C,D,E,r,x,P): inputs sets of linear affine expressions C, D, and E in the variable r, and symbols x and P.
+#outputs the algebraic equation satisfied by the ordinary generating function of the
+#sequence enumerating Motzkin paths with no upward runs in the range of C, no downward runs in the range of D, 
+#and no flat runs in the range of E.
+fCDEr:=proc(C,D,E,r,x,P) local eq,gu,STILLTODO, ALREADYDONE,Z,a,STATE,var,var1,lu,gu1,i,i1:
+
+	ALREADYDONE:={}:
+	STILLTODO:={[C,C,D,D,E,E,E,0]}:
+	eq:={}:
+
+if member(0,{seq(coeff(c,r,0), c in C)}) or member(0,{seq(coeff(d,r,0), d in D)}) then
+		RETURN(FAIL):
+	fi:
+
+	while STILLTODO<>{} do
+
+		STATE:=STILLTODO[1]:
+		ALREADYDONE:=ALREADYDONE union {STATE}:
+		gu:=ChildCDEr(STATE,r,Z,x):
+		eq:=eq union {gu[1]}:
+		STILLTODO:=(STILLTODO union gu[2]) minus ALREADYDONE:
+	od:
+
+	var:={seq(Z[op(a)], a in ALREADYDONE)}:
+	var1:=var minus {Z[C,C,D,D,E,E,E,0]}:
+	var:=[op(var1),Z[C,C,D,D,E,E,E,0]]:
+
+	gu:=subs(Z[C,C,D,D,E,E,E,0]=P,Groebner[Basis](eq,plex(op(var)))[1]); 
+	gu:=factor(gu):
+
+	if not type(gu,`*`) then 
+		RETURN(gu):
+	fi:
+
+	lu:=SeqABCDEr({},{},C,D,E,r,30):
+	lu:=add(lu[i]*x^(i-1),i=1..nops(lu)):
+
+	for i from 1 to nops(gu) do
+		gu1:=op(i,gu):
+		if {seq(coeff(taylor(subs(P=lu,gu1),x=0,31),x,i1),i1=0..30)}={0} then
+			gu1:=add(factor(coeff(gu1,P,i))*P^i,i=0..degree(gu1,P)):
+			RETURN(gu1):
+		fi:
+	od:
+
+	FAIL:
+end:
+
+###############FROM motzkin.txt
+
+
+Help1:=proc(): print(`SetU(m,n)`,`SetD(m,n)`,`SetF(m,n)`): print(`u(m,n)`,`d(m,n)`,`f(m,n)`): 
+  print(`Ru(m,n,A,B,F)`, `Rd(m,n,A,B,F)`, `Rf(m,n,A,B,F)`):  
+  print(`NRu(m,n,A,B,C,D,E,F)`, `NRd(m,n,A,B,C,D,E,F)`, `NRf(m,n,A,B,C,D,E,F)`):
+  print(`NRur(m,n,A,B,C,D,E,F,r)`, `NRdr(m,n,A,B,C,D,E,F,r)`, `NRfr(m,n,A,B,C,D,E,F,r)`):
+  print(`SeqABCDE(A,B,C,D,E,K)`, `SeqABCDEr(A,B,C,D,E,r,K)`): 
+  print(`Motzkin(n)`, `Mk(n,k)`, `Targem1(L)`, `IsGoodCDE(L,C,D,E)`):
+  print(`Targem2(L)`, `IsGoodA(L,A)`, `IsGoodB(L,B)`, `MotzkinABCDE(A,B,C,D,E,n)`, `SeqABCDEbrute(A,B,C,D,E,K)`):
+  print(`IsGoodCDEr(L,C,D,E,r)`, `IsGoodAr(L,A,r)`, `IsGoodBr(L,A,r)`, `MotzkinPathsABCDEr(A,B,C,D,E,r,n)`, `SeqABCDErBrute(A,B,C,D,E,r,K)`):
+  print(`The following procedures from Dr. Doron Zeilberger's Dyck.txt are also included: IsRange1(f,k,n), IsRange(F,k,n), Aeq(gu,x,P)`):
+end:
+
+
+#SetU(m,n): inputs non-negative integers m,n
+#Outputs the set of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in an up step.
+SetU:=proc(m,n) local gu,mu,r,mu1 :
+  option remember:
+
+  if (m<0 or n<0 or m<n) then RETURN({}): fi:
+
+  if m=0 and n=0 then RETURN({}): fi:
+
+  gu:={}:
+
+  for r from 1 to n do 
+    mu:=SetD(m-r,n-r) union SetF(m-r,n-r):
+    gu:= gu union {seq([op(mu1),1$r],mu1 in mu)}: 
+  od:
+
+  gu:
+
+  end:
+
+
+#SetD(m,n): inputs non-negative integers m,n
+#Outputs the set of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in a down step.
+SetD:=proc(m,n) local gu,mu,r,mu1 :
+ option remember:
+
+  if (m<0 or n<0 or m<n) then RETURN({}): fi:
+
+  if m=0 then 
+    if n=0 then RETURN({[]}):
+    else RETURN({}): fi: fi:
+
+  gu:={}:
+
+  for r from 1 to m do 
+    mu:=SetU(m-r,n+r) union SetF(m-r,n+r):
+    gu:= gu union {seq([op(mu1),-1$r],mu1 in mu)}: 
+  od:
+
+  gu:
+
+  end:
+
+
+#SetF(m,n): inputs non-negative integers m,n
+#Outputs the set of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in a flat step.
+SetF:=proc(m,n) local gu,mu,r,mu1 :
+ option remember:
+
+  if (m<0 or n<0 or m<n) then RETURN({}): fi:
+
+  if m=0 then RETURN({}): fi:
+
+  gu:={}:
+
+  for r from 1 to m do 
+    mu:=SetU(m-r,n) union SetD(m-r,n): 
+    gu:= gu union {seq([op(mu1),0$r],mu1 in mu)}: 
+  od:
+
+  gu:
+
+  end:
+
+
+#u(m,n): inputs non-negative integers m,n
+#Outputs the number of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in an up step.
+u:=proc(m,n) local r:
+  option remember:
+  if m=0 then 0:
+  else add(d(m-r,n-r)+f(m-r,n-r),r=1..n):
+fi:
+end:
+
+
+#d(m,n): inputs non-negative integers m,n
+#Outputs the number of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in a down step.
+d:=proc(m,n) local r: 
+option remember:
+  if m=0 then 
+    if n=0 then RETURN(1):
+     else RETURN(0):
+     fi:
+   fi:
+ add(u(m-r,n+r)+f(m-r,n+r),r=1..m):
+end:
+
+#f(m,n): inputs non-negative integers m,n
+#Outputs the number of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in a flat step.
+f:=proc(m,n) local r:
+option remember:
+  if m=0 then RETURN(0):
+   fi:
+    add(u(m-r,n)+d(m-r,n),r=1..m):
+end:
+
+
+#Ru(m,n,A,B,F): inputs non-negative integers m and n, finite sets A and B of non-negative integers, and F={} or d or f
+#Outputs the set of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in an up step
+#s.t. no peak heights belongs to A and no valley height belongs to B when F is appended to the walk.
+#Here, a peak is defined as any chain U F^k D where F^k is a flat run of length k where k is a non-negative integer
+#Similarly, a valley is a chain D F^k U where F^k is a flat run of length k where k is a non-negative integer
+#or a chain D F^k that occurs at the end of a walk
+
+Ru:=proc(m,n,A,B,F) local gu,mu,r,mu1 :
+  option remember:
+  if (m<0 or n<0 or m<n) then RETURN({}): fi:
+  if m=0 and n=0 then RETURN({}): fi:
+  gu:={}:
+
+  if F={} or F=d then
+    if member(n,A) then RETURN({}): fi: fi:
+
+  for r from 1 to n do 
+    mu:=Rd(m-r,n-r,A,B,u) union Rf(m-r,n-r,A,B,u):
+    gu:= gu union {seq([op(mu1),1$r],mu1 in mu)}:  
+    od:
+  gu:
+end:
+
+#Rd(m,n,A,B,F): inputs non-negative integers m and n, finite sets A and B of non-negative integers, and F={} or d or f
+#Outputs the set of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in a down step
+#s.t. no peak heights belongs to A and no valley height belongs to B when F is appended to the walk.
+#Here, a peak is defined as any chain U F^k D where F^k is a flat run of length k where k is a non-negative integer
+#Similarly, a valley is a chain D F^k U where F^k is a flat run of length k where k is a non-negative integer
+#or a chain D F^k that occurs at the end of a walk
+
+Rd:=proc(m,n,A,B,F) local gu,mu,r,mu1 :
+ option remember:
+  if (m<0 or n<0 or m<n) then RETURN({}): fi:
+  if m=0 then 
+    if n=0 then RETURN({[]}):
+    else RETURN({}): fi: fi:
+
+  gu:={}:
+
+  if F={} or F=u then
+    if member(n,B) then RETURN({}): fi: fi:
+
+  for r from 1 to m do 
+    mu:=Ru(m-r,n+r,A,B,d) union Rf(m-r,n+r,A,B,d):
+    gu:= gu union {seq([op(mu1),-1$r],mu1 in mu)}: 
+  od:
+  
+  gu:
+end:
+
+
+#Rf(m,n,A,B,F): inputs non-negative integers m and n, finite sets A and B of non-negative integers , and F={} or d or f
+#Outputs the set of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in a flat step
+#s.t. no peak heights belongs to A and no valley height belongs to B when F is appended to the walk.
+#Here, a peak is defined as any chain U F^k D where F^k is a flat run of length k where k is a non-negative integer
+#Similarly, a valley is a chain D F^k U where F^k is a flat run of length k where k is a non-negative integer
+#or a chain D F^k that occurs at the end of a walk
+
+Rf:=proc(m,n,A,B,F) local gu,mu,r,mu1, nu, gu1, gu2 :
+ option remember:
+  if (m<0 or n<0 or m<n) then RETURN({}): fi:
+  if m=0 then RETURN({}): fi:
+
+  if member(n,B) and n=0 then RETURN({[0$m]}):
+  elif F={} and member(n,B) and member(n,A) then RETURN({}):
+  else
+    gu1:={}: gu2:={}: 
+
+    for r from 1 to m do 
+      mu:=Ru(m-r,n,A,B,f):  nu:=Rd(m-r,n,A,B,f):
+      gu1:= gu1 union {seq([op(mu1),0$r],mu1 in mu)}:
+      gu2:= gu2 union {seq([op(nu1),0$r],nu1 in nu)}:
+    od:
+
+    if F=u and member(n,B) then gu:=gu1:
+    elif F=d and member(n,A) then gu:=gu2:
+    elif F={} and member(n,B) then gu:=gu1:
+    elif F={} and member(n,A) then gu:=gu2:
+    else
+     gu:=gu1 union gu2:
+    fi:
+ fi:
+gu:
+end:
+
+
+#NRu(m,n,A,B,C,D,E,F): inputs non-negative integers m and n, finite sets A, B,C,D, and E of non-negative integers, and F={} or d or f
+#Outputs the number of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in an up step
+#s.t. no peak has height belongs to A and no valley height belongs to B
+#no upward run belongs to C, no downward run belongs to D, and no flat run belongs to E
+#Here, a peak is defined as any chain U F^k D where F^k is a flat run of length k where k is a non-negative integer
+#Similarly, a valley is a chain D F^k U where F^k is a flat run of length k where k is a non-negative integer
+#or a chain D F^k that occurs at the end of a walk
+
+NRu:=proc(m,n,A,B,C,D,E,F) local r, gu:
+  option remember:
+
+  if (m<0 or n<0 or m<n) then RETURN(0): fi:
+  if m=0 then RETURN(0): fi:
+
+  gu:=0:
+  if F={} or F=d then
+    if member(n,A) then  RETURN(0): fi: fi:
+
+  for r from 1 to n do 
+    if not member(r,C) then 
+    	gu:=gu+NRd(m-r,n-r,A,B,C,D,E,u)+NRf(m-r,n-r,A,B,C,D,E,u): fi: od:
+  gu:
+
+  end:
+
+#NRd(m,n,A,B,C,D,E,F): inputs non-negative integers m and n, finite sets A, B,C,D, and E of non-negative integers, and F={} or u or f
+#Outputs the number of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in a down step
+#s.t. no peak has height belongs to A and no valley height belongs to B
+#no upward run belongs to C, no downward run belongs to D, and no flat run belongs to E
+#Here, a peak is defined as any chain U F^k D where F^k is a flat run of length k where k is a non-negative integer
+#Similarly, a valley is a chain D F^k U where F^k is a flat run of length k where k is a non-negative integer
+#or a chain D F^k that occurs at the end of a walk
+
+NRd:=proc(m,n,A,B,C,D,E,F) local r, gu:
+  option remember:
+
+  if (m<0 or n<0 or m<n) then RETURN(0): fi:
+  if m=0 then 
+    if n=0 then RETURN(1):
+    else RETURN(0): fi: fi:
+   gu:=0:
+
+  if F={} or F=u then
+    if member(n,B) then RETURN(0): fi: fi:
+
+  for r from 1 to m do 
+  	if not member(r,D) then  
+       gu:= gu + NRu(m-r,n+r,A,B,C,D,E,d)+ NRf(m-r,n+r,A,B,C,D,E,d): 
+     fi: od:
+  gu:
+  end:
+
+#NRf(m,n,A,B,C,D,E,F): inputs non-negative integers m and n, finite sets A, B,C,D, and E of non-negative integers , and F={} or u or d
+#Outputs the number of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in a flat step
+#s.t. no peak has height belongs to A and no valley height belongs to B
+#no upward run belongs to C, no downward run belongs to D, and no flat run belongs to E
+#Here, a peak is defined as any chain U F^k D where F^k is a flat run of length k where k is a non-negative integer
+#Similarly, a valley is a chain D F^k U where F^k is a flat run of length k where k is a non-negative integer
+#or a chain D F^k that occurs at the end of a walk
+
+NRf:=proc(m,n,A,B,C,D,E,F) local r, gu,gu1,gu2:
+ option remember:
+
+  if (m<0 or n<0 or m<n) then RETURN(0): fi:
+
+  if m=0 then RETURN(0): fi:
+
+  if member(n,B) and n=0 then gu:=1:
+  elif F={} and member(n,B) and member(n,A) then gu:=0:
+  else
+    gu1:=0: gu2:=0: 
+
+    for r from 1 to m do 
+      if not member(r,E) then  
+        gu1:= gu1 + NRu(m-r,n,A,B,C,D,E,f): 
+        gu2:=  gu2 + NRd(m-r,n,A,B,C,D,E,f): 
+    fi:od:
+
+    if F=u and member(n,B) then gu:=gu1:
+    elif F=d and member(n,A) then gu:=gu2:
+    elif F={} and member(n,B) then gu:=gu1:
+    elif F={} and member(n,A) then gu:=gu2:
+    else gu:=gu1+gu2:
+  fi: fi:
+
+  gu:
+end:
+
+
+#IsRange1(f,k,n): inputs a linear expression f in k and a non-negative integer n
+#decides whether f(k0)=n for some non-negative integer k0.
+#This was taken from Dr. Doron Zeilberger's Dyck.txt
+
+IsRange1:=proc(f,k,n) local k0:
+  k0:=solve(f=n,k):
+
+  if k0>=0 and type(k0,integer) then
+    true:
+  else
+   false:
+  fi:
+end:
+
+#IsRange(F,k,n): inputs a set of linear expressions F={f} in k and a non-negative integer n
+#decides whether f(k0)=n for some non-negative integer k0 and some f in F
+#This was taken from Dr. Doron Zeilberger's Dyck.txt
+
+IsRange:=proc(F,k,n) local f:
+  for f in F do
+    if IsRange1(f,k,n) then
+      RETURN(true):
+    fi:
+  od:
+  false:
+end:
+
+
+#NRur(m,n,A,B,C,D,E,F,r): inputs non-negative integers m and n, sets A,B,C,D,E of linear expressions in the variable r, and F={} or d or f
+#Outputs the number of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in an up step
+#s.t. no peak has height is in the range of A and no valley height is in the range of B
+#no upward run is in the range of C, no downward run is in the range of D, and no flat run is in the range of E
+#Here, a peak is defined as any chain U F^k D where F^k is a flat run of length k where k is a non-negative integer
+#Similarly, a valley is a chain D F^k U where F^k is a flat run of length k where k is a non-negative integer
+#or a chain D F^k that occurs at the end of a walk
+
+NRur:=proc(m,n,A,B,C,D,E,F,r) local gu,k:
+  option remember:
+
+  if (m<0 or n<0 or m<n) then
+    RETURN(0):
+  fi:
+
+  if m=0 and n=0 then
+    RETURN(0):
+  fi:
+
+  if F={} or F=d then 
+    if IsRange(A,r,n) then
+      RETURN(0):
+  fi: fi:
+
+  gu:=0:
+
+  for k from 1 to n do
+    if not IsRange(C,r,k) then
+      gu:=gu+NRdr(m-k,n-k,A,B,C,D,E,u,r)+NRfr(m-k,n-k,A,B,C,D,E,u,r):
+    fi:
+  od:
+
+  gu:
+end:
+
+
+#NRdr(m,n,A,B,C,D,E,F,r): inputs non-negative integers m and n, sets A,B,C,D,E of linear expressions in the variable r, and F={} or u or f
+#Outputs the number of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in a down step
+#s.t. no peak has height is in the range of A and no valley height is in the range of B
+#no upward run is in the range of C, no downward run is in the range of D, and no flat run is in the range of E
+#Here, a peak is defined as any chain U F^k D where F^k is a flat run of length k where k is a non-negative integer
+#Similarly, a valley is a chain D F^k U where F^k is a flat run of length k where k is a non-negative integer
+#or a chain D F^k that occurs at the end of a walk
+
+NRdr:=proc(m,n,A,B,C,D,E,F,r) local gu,k:
+  option remember:
+
+  if (m<0 or n<0 or m<n) then
+    RETURN(0):
+  fi:
+
+  if m=0 and n=0 then
+    RETURN(1):
+  fi:
+
+  if F={} or F=u then
+    if IsRange(B,r,n) then
+      RETURN(0):
+  fi: fi:
+
+  gu:=0:
+
+  for k from 1 to m do
+    if not IsRange(D,r,k) then
+      gu:=gu+NRur(m-k,n+k,A,B,C,D,E,d,r)+NRfr(m-k,n+k,A,B,C,D,E,d,r):
+   fi:
+  od:
+
+  gu:
+end:
+
+#NRfr(m,n,A,B,C,D,E,F,r): inputs non-negative integers m and n, sets A,B,C,D,E of linear expressions in the variable r, and F={} or u or d
+#Outputs the number of walks from (0,0) to (m,n) which stay weakly above the x-axis and end in a flat step
+#s.t. no peak has height is in the range of A and no valley height is in the range of B
+#no upward run is in the range of C, no downward run is in the range of D, and no flat run is in the range of E
+#Here, a peak is defined as any chain U F^k D where F^k is a flat run of length k where k is a non-negative integer
+#Similarly, a valley is a chain D F^k U where F^k is a flat run of length k where k is a non-negative integer
+#or a chain D F^k that occurs at the end of a walk
+
+NRfr:=proc(m,n,A,B,C,D,E,F,r) local gu,k,gu1,gu2:
+  option remember:
+
+  if (m<0 or n<0 or m<n) then
+    RETURN(0):
+  fi:
+
+  if m=0 and n=0 then
+    RETURN(0):
+  fi:
+
+  if IsRange(B,r,n) and n=0 then gu:=1:
+  elif F={} and IsRange(B,r,n) and IsRange(A,r,n) then gu:=0:
+  else
+    gu1:=0: gu2:=0: 
+
+    for k from 1 to m do
+      if not IsRange(E,r,k) then
+        gu1:= gu1 + NRur(m-k,n,A,B,C,D,E,f,r):  
+        gu2:=  gu2 + NRdr(m-k,n,A,B,C,D,E,f,r):
+    fi:od:
+ 
+    if F=u and IsRange(B,r,n) then gu:=gu1: 
+    elif F=d and IsRange(A,r,n) then gu:=gu2:
+    elif F={} and IsRange(B,r,n) then gu:=gu1:
+    elif F={} and IsRange(A,r,n) then gu:=gu2:
+    else gu:=gu1+gu2:
+    fi:
+  fi:
+  gu:
+end:
+
+
+#SeqABCDE(A,B,C,D,E,K): inputs finite sets A,B,C,D,E of non-negative integers and positive integer K
+#Outputs the first K terms of the sequence of Motzkin paths of length n
+#where no peak height belongs to A and no valley height belongs to B
+#No upward run belongs to C, No downward run in D, and no flat run belongs to E
+#Here, a peak is defined as any chain U F^k D where F^k is a flat run of length k where k is a non-negative integer
+#Similarly, a valley is a chain D F^k U where F^k is a flat run of length k where k is a non-negative integer
+#or a chain D F^k that occurs at the end of a walk
+SeqABCDE:=proc(A,B,C,D,E,K) local i,L,m:
+  L:=[seq(NRd(m,0,A,B,C,D,E,{})+NRf(m,0,A,B,C,D,E,{}),m=0..K)]:
+end:
+
+
+
+#SeqABCDEr(A,B,C,D,E,r,K): inputs sets A,B,C,D,E of linear expressions in the variable r and positive integer K
+#Outputs the first K terms of the sequence of Motzkin paths of length n
+#where no peak has height is in the range of A and no valley height is in the range of B
+#no upward run is in the range of C, no downward run is in the range of D, and no flat run is in the range of E
+#Here, a peak is defined as any chain U F^k D where F^k is a flat run of length k where k is a non-negative integer
+#Similarly, a valley is a chain D F^k U where F^k is a flat run of length k where k is a non-negative integer
+#or a chain D F^k that occurs at the end of a walk
+
+SeqABCDEr:=proc(A,B,C,D,E,r,K) local i,L:
+
+L:=[seq(NRdr(m,0,A,B,C,D,E,{},r)+NRfr(m,0,A,B,C,D,E,{},r),m=0..K)]:
+
+end:
+
+
+
+#####Start Brute force#####
+ 
+#Motzkin(n): outputs all Motzkin paths of length n.
+Motzkin:=proc(n) local k:
+  option remember:
+  if n<0 then {}:
+  elif n=0 then {[]}:
+  else
+    {seq(op(Mk(n,k)),k=1..n)}: 
+  fi:
+end:
+
+
+
+#Mk(n,k): All Motzkin paths of length n of the form 1 L1 (-1) L3 or L1 0 L2  
+#where L1 in Motzkin(k-1), L2 in Motzkin(n-k), and L3 ni Motzkin (k-2).
+
+Mk:=proc(n,k) local gu1,gu2,mu1,mu2,gu3, mu3:
+option remember:
+  if n<0 or n=0 then RETURN({}): fi:
+
+  if k=0 then RETURN({}): fi:
+  
+  gu1:=Motzkin(k-1):
+  gu2:=Motzkin(n-k):
+  gu3:=Motzkin(k-2):
+
+  {seq(seq([1, op(mu3), -1, op(mu2)], mu3 in gu3), mu2 in gu2),seq(seq([op(mu1), 0, op(mu2)], mu1 in gu1), mu2 in gu2)}:
+end:
+
+
+
+#Targem1(L): translates a Motzkin path into a sequence of positive, negative integers, and sets
+#representing the upwards, downwards, and flat runs respectively
+#such that the partial sums of the integers are always non-negative
+
+Targem1:=proc(L) local i,j,k1,k2,k3:
+  if L=[] then RETURN([]): fi:
+
+  for k1 from 1 to nops(L) while L[k1]=0 do od:
+
+  for i from k1 to nops(L) while L[i]=1 do od:
+
+  for k2 from i to nops(L) while L[k2]=0 do od:
+  
+  for j from k2 to nops(L) while L[j]=-1  do od:
+
+  for k3 from j to nops(L) while L[k3]=0 do od:
+  subs({0}=NULL,0=NULL,[{k1-1},i-k1,{k2-i},k2-j, {k3-j}, op(Targem1([op(k3..nops(L),L)]))]):
+
+end:
+
+
+
+#IsGoodCDE(L,C,D,E): Inputs a Motzkin path L, and finite sets C,D,E of non-negative integers.
+#Decides whether no upwards run in L belongs to C, no downwards run in L belongs to D, and no flat run in L belongs to E.
+IsGoodCDE:=proc(L,C,D,E) local L1,i:
+  L1:=Targem1(L):
+
+  for i from 1 to nops(L1) do
+    if type(L1[i],set)=true then 
+      if member(op(L1[i]),E) then RETURN(false): fi:
+    elif type(L1[i],positive)=true then 
+      if member(L1[i],C) then RETURN(false): fi:
+    else
+      if member(-L1[i],D) then RETURN(false): fi:
+    fi:
+  od:
+
+  true:
+end:
+
+
+#IsGoodCDEr(L,C,D,E,r): Inputs a Motzkin path L, and sets C,D,E of linear expressions in the variable r.
+#Decides whether no upwards run in L belongs to the range of C, no downward run in L belongs to the range of D,
+#and no flat run in L belongs to the range of E.
+
+IsGoodCDEr:=proc(L,C,D,E,r) local L1,i:
+  L1:=Targem1(L):
+
+ for i from 1 to nops(L1) do
+   if type(L1[i],set)=true then 
+     if IsRange(E,r,op(L1[i])) then RETURN(false): fi:
+   elif type(L1[i],positive)=true then 
+     if IsRange(C,r,L1[i]) then RETURN(false): fi:
+   else
+    if IsRange(D,r,-L1[i]) then RETURN(false): fi:
+   fi:
+  od:
+
+  true:
+end:
+
+
+#Targem2(L): translates a Motzkin path into a sequence of the partial sums when it between a 
+#chain with steps in {0,1} starting with 1 (i.e. weakly increasing chain starting with an upwards step)
+#and a chain with steps in {0,-1} starting with -1 (i.e. a weakly decreasing chain starting with a downwards step)
+
+Targem2:=proc(L) local L1,i,L2,su:
+  L1:=Targem1(L):
+  L2:=[]:
+  su:=0:
+  
+  for i from 1 to nops(L1) do 
+    if type(L1[i],set)=false then 
+      su:=su+L1[i]: 
+      L2:=[op(L2),su]:
+    else
+      if i < nops(L1) and i>1 then
+        if type(L1[i-1],positive)=type(L1[i+1],positive) then
+        	su:=su+L1[i+1]:
+        	L2:=[op(1..-2,L2),su]: 
+        	i:=i+1: 
+  fi: fi: fi: od:
+  L2:
+end:
+
+
+#IsGoodA(L,A): Inputs a Motzkin path L, and a finite set A of non-negative integers.
+#Decides whether none of the heights in a peak location of L belongs to A
+#A peak height is the maximal height of a chain beginning with the step 1 and ending with the step -1,
+#s.t. any steps between (if any) are 0.
+
+IsGoodA:=proc(L,A) local L1,i:
+  L1:=Targem2(L):
+
+  for i from 1 to nops(L1)/2 do
+    if member(L1[2*i-1],A) then
+      RETURN(false):
+    fi:
+  od:
+  
+  true:
+end:
+
+
+#IsGoodB(L,B): Inputs a Motzkin path L, and a finite set B of non-negative integers,
+#Decides whether none of the heights in a valley location of L belongs to B.
+#A valley height is the minimal height of a chain beginning with the step -1 and ending with the step 1,
+#s.t. any steps between (if any) are 0.
+IsGoodB:=proc(L,B) local L1,i:
+  L1:=Targem2(L):
+
+  for i from 1 to nops(L1)/2 do
+  	if member(L1[2*i],B) then RETURN(false): fi:
+  od:
+
+  true:
+end:
+
+
+
+#IsGoodAr(L,A,r): Inputs a Motzkin path L, and a set A of linear expressions in the variable r.
+#Decides whether none of the heights in a peak location belongs to the range of A
+#A peak height is the maximal height of a chain beginning with the step 1 and ending with the step -1,
+#s.t. any steps between (if any) are 0.
+
+IsGoodAr:=proc(L,A,r) local L1,i:
+  L1:=Targem2(L):
+
+  for i from 1 to nops(L1)/2 do
+    if IsRange(A,r,L1[2*i-1]) then
+      RETURN(false):
+    fi:
+  od:
+
+  true:
+end:
+
+
+#IsGoodBr(L,A,r): Inputs a Motzkin path L, and a set B of linear expressions in the variable r. 
+#Decides whether none of the heights in a valley location belongs to the range of B
+#A valley height is the minimal height of a chain beginning with the step -1 and ending with the step 1,
+#s.t. any steps between (if any) are 0.
+
+IsGoodBr:=proc(L,B,r) local L1,i:
+  L1:=Targem2(L):
+
+  for i from 1 to nops(L1)/2 do
+    if IsRange(B,r,L1[2*i]) then
+      RETURN(false):
+    fi:
+  od:
+
+  true:
+end:
+
+#MotzkinABCDE(A,B,C,D,E,n): Inputs five finite sets A, B, C,D,E of non-negative integers and a positive integer n,
+#Outputs the set of Motzkin paths counted by SeqABCDE(A,B,C,D,E,K). In other words:
+#where no peak can be of height that belongs to A and no valley can be of height that belongs to B
+#No length of upward run belongs to C and no length of downward run belongs to D and no length of flat run belongs to E
+#A peak height is the maximal height of a chain beginning with the step 1 (i.e. up) and ending with the step -1 (i.e. down),
+#s.t. any steps between (if any) are 0 (i.e. flat).
+
+MotzkinABCDE:=proc(A,B,C,D,E,n) local gu,mu,mu1:
+  mu:=Motzkin(n):
+  gu:={}:
+  for mu1 in mu do
+    if (IsGoodCDE(mu1,C,D,E) and IsGoodA(mu1,A) and IsGoodB(mu1,B)) then
+      gu:=gu union {mu1}:
+    fi:
+  od:
+
+  gu:
+end:
+
+
+
+#MotzkinABCDEr(A,B,C,D,E,r,n): Inputs five sets  A, B, C,D,E of linear expressions in the variable r, and a positive integer n.
+#Outputs the set of Motzkin paths counted by SeqABCDEr(A,B,C,D,E,r, K). In other words:
+#where no peak can be of height that belongs to the range of A and no valley can be of height that belongs to  the range of B,
+#No length of upward run belongs to the range of C and no length of downward run belongs to the range of D
+#and no length of flat run belongs to the range of E.
+#A peak height is the maximal height of a chain beginning with the step 1 (i.e. up) and ending with the step -1 (i.e. down),
+#s.t. any steps between (if any) are 0 (i.e. flat).
+
+MotzkinABCDEr:=proc(A,B,C,D,E,r,n) local gu,mu,mu1:
+  mu:=Motzkin(n):
+  gu:={}:
+  for mu1 in mu do
+    if (IsGoodCDEr(mu1,C,D,E,r)  and IsGoodAr(mu1,A,r) and IsGoodBr(mu1,B,r)) then
+      gu:=gu union {mu1}:
+    fi:
+  od:
+
+  gu:
+end:
+
+
+#SeqABCDEbrute(A,B,C,D,E,K): Same output as SeqABCDE(A,B,C,D,E,K) but by complete brute force. 
+#FOR CHECKING PURPOSES ONLY
+#Don't  make K too big. 
+SeqABCDEbrute:=proc(A,B,C,D,E,K) local i:
+  [seq(nops(MotzkinABCDE(A,B,C,D,E,i)),i=0..K)]:
+end:
+
+#SeqABCDErBrute(A,B,C,D,K):  Same output as SeqABCDEr(A,B,C,D,E,r,K) but by complete brute force. 
+#FOR CHECKING PURPOSES ONLY
+#Don't  make K too big. 
+
+SeqABCDErBrute:=proc(A,B,C,D,E,r,K) local i:
+[seq(nops(MotzkinABCDEr(A,B,C,D,E,r,i)),i=0..K)]:
+
+end:
+
+
+
+
+
+###Start from SCHUTZENBERGER.txt
+#empir(gu,degx,degP,x,P) 
+#to "fit" an algebraic equation F(P(x),x)=0 of degree
+#degP in P(x) and degx in n for P(x):=sum_i gu[i]*x^i
+ 
+empir:=proc(gu,degx,degP,x,P)
+local i1,i2,F,a,cand,lu,eq,var,mu,flo,pip,ka,mu1,Ftry:
+
+if (1+degx)*(1+degP) > nops(gu)-15 then
+ RETURN(`sequence too small`):
+fi:
+ 
+F:=0:
+var:={}:
+for i1 from 0 to degx do
+ for i2 from 0 to degP do
+  F:=F+a[i1,i2]*x^i1*P^i2:
+  var:=var union {a[i1,i2]}:
+ od:
+od:
+ 
+cand:=0:
+ 
+for i1 from 0 to nops(gu)-1 do
+ cand:=cand+op(i1+1,gu)*x^i1:
+od:
+ 
+lu:=subs(P=cand,F):
+lu:=taylor(lu,x=0,nops(gu)-1):
+ 
+eq:={}:
+ 
+for i1 from 0 to nops(gu)-2 do
+eq:=eq union {coeff(lu,x,i1)=0}
+od:
+ 
+mu:=solve(eq,var):
+
+ka:=0:
+
+for mu1 in mu do
+ if op(1,mu1)=op(2,mu1) then
+ ka:=ka+1:
+ fi:
+od:
+
+if ka>1 then
+ RETURN(FAIL):
+fi:
+
+F:=subs(mu,F):
+ 
+if F=0 then
+ RETURN(FAIL):
+fi:
+ 
+flo:=degree(F,P):
+pip:=coeff(F,P,flo):
+flo:=degree(pip,x):
+pip:=coeff(pip,x,flo):
+F:=normal(F/pip):
+
+Ftry:=taylor(subs(P=add(gu[i1+1]*x^i1,i1=0..nops(gu)-1),F),x=0,nops(gu)+1):
+
+if {seq(coeff(Ftry,x,i1),i1=0..nops(gu)-2)}<>{0} then
+ RETURN(FAIL):
+fi:
+
+normal(F):
+end:
+
+
+
+Aeq:=proc(gu,x,P)
+local degx,degP,L,lu:
+ 
+for L from 1 to (nops(gu)-15)/3 do
+for degP from 1 to L do
+for degx from 0 to min(trunc((nops(gu)-15)/(1+degP))-1,L-degP) do
+ 
+lu:=empir(gu,degx,degP,x,P):
+ 
+if lu<>FAIL then
+RETURN(lu):
+fi:
+od:
+od:
+od:
+FAIL:
+end:
+ 
+###end from SCHUTZENBERGER.txt
+ 
+   
+ 
+##start from Findrec
+ezraFindrec:=proc()
+if args=NULL then
+
+print(` FindRec.txt: A Maple package for empirically guessing partial recurrence`):
+print(`equations satisfied by Discrete Functions of ONE Variable`):
+print():
+print(`For help with a specific procedure, type "ezra(procedure_name);"`):
+print(`Contains procedures:  `):
+print(`  findrec, Findrec, FindrecF`):
+print():
+
+elif nargs=1 and args[1]=findrec then
+print(`findrec(f,DEGREE,ORDER,n,N): guesses a recurrence operator annihilating`):
+print(`the sequence f of degree DEGREE and order ORDER.`):
+print(`For example, try: findrec([seq(i,i=1..10)],0,2,n,N);`):
+
+elif nargs=1 and args[1]=Findrec then
+print(`Findrec(f,n,N,MaxC): Given a list f tries to find a linear recurrence equation with`):
+print(`poly coffs. ope(n,N), where n is the discrete variable, and N is the shift operator `):
+print(`of maximum DEGREE+ORDER<=MaxC`):
+print(`e.g. try Findrec([1,1,2,3,5,8,13,21,34,55,89],n,N,2);`):
+
+elif nargs=1 and args[1]=FindrecF then
+print(`FindrecF(f,n,N): Given a function f of a single variable tries to find a linear recurrence equation with`):
+print(`poly coffs. .g. try FindrecF(i->i!,n,N);`):
+
+
+elif nargs=1 and args[1]=SeqFromRec then
+print(`SeqFromRec(ope,n,N,Ini,K): Given the first L-1`):
+print(`terms of the sequence Ini=[f(1), ..., f(L-1)]`):
+print(`satisfied by the recurrence ope(n,N)f(n)=0`):
+print(`extends it to the first K values`):
+print(`For example, try:`):
+print(`SeqFromRec(N-n-1,n,N,[1],10);`):
+
+
+fi:
+ 
+end:
+
+
+###Findrec 
+#findrec(f,DEGREE,ORDER,n,N): guesses a recurrence operator annihilating
+#the sequence f of degree DEGREE and order ORDER
+#For example, try: findrec([seq(i,i=1..10)],0,2,n,N);
+findrecVerbose:=proc(f,DEGREE,ORDER,n,N)
+local ope,var,eq,i,j,n0,kv,var1,eq1,mu,a:
+if (1+DEGREE)*(1+ORDER)+3+ORDER>nops(f) then
+#ERROR(`Insufficient data for a recurrence of order`,ORDER, `degree`,DEGREE):
+RETURN(FAIL):
+fi:
+ope:=0:
+var:={}:
+ 
+for i from 0 to ORDER do
+ for j from 0 to DEGREE do
+  ope:=ope+a[i,j]*n^j*N^i:
+  var:=var union {a[i,j]}:
+ od:
+od:
+    
+eq:={}:
+ 
+for n0 from 1 to (1+DEGREE)*(1+ORDER)+2 do
+  eq1:=0:
+ 
+  for i from 0 to ORDER do
+     eq1:=eq1+subs(n=n0,coeff(ope,N,i))*op(n0+i,f):
+  od:
+ 
+   eq:= eq union {eq1}:
+od:
+ 
+var1:=solve(eq,var):
+ 
+kv:={}:
+ 
+for i from 1 to nops(var1) do
+ mu:=op(i,var1):
+ 
+if op(1,mu)=op(2,mu) then
+   kv:= kv union {op(1,mu)}:
+ fi:
+ 
+od:
+
+ope:=subs(var1,ope):
+
+if ope=0 then
+  RETURN(FAIL):
+fi:
+
+ope:={seq(coeff(expand(ope),kv[i],1),i=1..nops(kv))} minus {0}:
+
+if nops(ope)>1 then
+print(`There is some slack, there are `, nops(ope)):
+print(ope):
+RETURN(Yafe(ope[1],N)[2]):
+elif nops(ope)=1 then
+RETURN(Yafe(ope[1],N)[2]):
+else
+ RETURN(FAIL):
+fi:
+
+end:
+ 
+#findrec(f,DEGREE,ORDER,n,N): guesses a recurrence operator annihilating
+#the sequence f of degree DEGREE and order ORDER
+#For example, try: findrec([seq(i,i=1..10)],0,2,n,N);
+findrec:=proc(f,DEGREE,ORDER,n,N)
+local ope,var,eq,i,j,n0,kv,var1,eq1,mu,a:
+option remember:
+
+
+if not findrecEx(f,DEGREE,ORDER,ithprime(20)) then
+ RETURN(FAIL):
+fi:
+
+if not findrecEx(f,DEGREE,ORDER,ithprime(40)) then
+ RETURN(FAIL):
+fi:
+
+if not findrecEx(f,DEGREE,ORDER,ithprime(80)) then
+ RETURN(FAIL):
+fi:
+
+
+if (1+DEGREE)*(1+ORDER)+5+ORDER>nops(f) then
+#ERROR(`Insufficient data for a recurrence of order`,ORDER, `degree`,DEGREE):
+RETURN(FAIL):
+fi:
+ope:=0:
+var:={}:
+ 
+for i from 0 to ORDER do
+ for j from 0 to DEGREE do
+  ope:=ope+a[i,j]*n^j*N^i:
+  var:=var union {a[i,j]}:
+ od:
+od:
+    
+eq:={}:
+ 
+for n0 from 1 to (1+DEGREE)*(1+ORDER)+4 do
+  eq1:=0:
+ 
+  for i from 0 to ORDER do
+     eq1:=eq1+subs(n=n0,coeff(ope,N,i))*op(n0+i,f):
+  od:
+ 
+   eq:= eq union {eq1}:
+od:
+ 
+var1:=solve(eq,var):
+ 
+kv:={}:
+ 
+for i from 1 to nops(var1) do
+ mu:=op(i,var1):
+ 
+if op(1,mu)=op(2,mu) then
+   kv:= kv union {op(1,mu)}:
+ fi:
+ 
+od:
+
+ope:=subs(var1,ope):
+
+if ope=0 then
+  RETURN(FAIL):
+fi:
+
+ope:={seq(coeff(expand(ope),kv[i],1),i=1..nops(kv))} minus {0}:
+
+if nops(ope)>1 then
+RETURN(Yafe(ope[1],N)[2]):
+elif nops(ope)=1 then
+ope:=ope[1]:
+
+if {seq(add(subs(n=n1+i1,coeff(ope,N,i1))*f[n1+i1],i1=0..degree(ope,N)),n1=1..nops(f)-degree(ope,N))}<>{0} then
+ RETURN(FAIL):
+fi:
+
+ ope:=Yafe(ope,N)[2]:
+
+
+if SeqFromRec(ope,n,N,[op(1..degree(ope,N),f)],nops(f))<>f then
+ RETURN(FAIL):
+else
+RETURN(ope):
+fi:
+else
+ RETURN(FAIL):
+fi:
+
+end:
+ 
+
+
+Yafe:=proc(ope,N) local i,ope1,coe1,L: 
+if ope=0 then
+ RETURN(1,0):
+fi:
+ope1:=expand(ope):
+L:=degree(ope1,N):
+coe1:=coeff(ope1,N,L):
+ope1:=normal(ope1/coe1):
+ope1:=normal(ope1):
+ope1:=
+convert(
+[seq(factor(coeff(ope1,N,i))*N^i,i=ldegree(ope1,N)..degree(ope1,N))],`+`):
+factor(coe1),ope1:
+end:
+
+
+#Findrec(f,n,N,MaxC): Given a list f tries to find a linear recurrence equation with
+#poly coffs.
+#of maximum DEGREE+ORDER<=MaxC
+#e.g. try Findrec([1,1,2,3,5,8,13,21,34,55,89],n,N,2);
+Findrec:=proc(f,n,N,MaxC)
+local DEGREE, ORDER,ope,L:
+
+for L from 0 to MaxC do
+for ORDER from 0 to L do
+ DEGREE:=L-ORDER:
+if (2+DEGREE)*(1+ORDER)+4>=nops(f) then
+# print(`Insufficient data for degree`, DEGREE, `and order `,ORDER):
+ RETURN(FAIL):
+fi:
+ ope:=findrec([op(1..(2+DEGREE)*(1+ORDER)+4,f)],DEGREE,ORDER,n,N):
+     if ope<>FAIL and degree(ope,N)<>0 then
+       RETURN(ope):
+      fi:
+ od:
+od:
+FAIL:
+
+end:
+
+
+
+
+
+ 
+#SeqFromRec(ope,n,N,Ini,K): Given the first L-1
+#terms of the sequence Ini=[f(1), ..., f(L-1)]
+#satisfied by the recurrence ope(n,N)f(n)=0
+#extends it to the first K values
+SeqFromRec:=proc(ope,n,N,Ini,K)
+local ope1,gu,L,n1,j1,ka,i1:
+ope1:=ope:
+
+L:=degree(ope1,N):
+if nops(Ini)<>L then
+ ERROR(`Ini should be of length`, L):
+fi:
+
+ka:={seq(subs(n=i1,lcoeff(ope1,N)),i1=1..K)}:
+
+if member(0,ka) then
+ RETURN(FAIL):
+fi:
+
+ope1:=expand(subs(n=n-L,ope1)/N^L):
+
+gu:=Ini:
+
+for n1 from nops(Ini)+1 to K do
+if member(0, { seq( subs(n=n1,denom(coeff(ope1,N,-j1)  ))  ,j1=1..L )}) then
+ RETURN(FAIL):
+else
+gu:=[op(gu), -add(gu[nops(gu)+1-j1]*subs(n=n1,coeff(ope1,N,-j1)),
+j1=1..L)]:
+fi:
+od:
+
+gu:
+
+end:
+ 
+#end Findrec
+
+
+with(linalg):
+
+#findrecEx(f,DEGREE,ORDER,m1): Explores whether thre
+#is a good chance that there is a recurrence of degree DEGREE
+#and order ORDER, using the prime m1
+#For example, try: findrecEx([seq(i,i=1..10)],0,2,n,N,1003);
+findrecEx:=proc(f,DEGREE,ORDER,m1)
+local ope,var,eq,i,j,n0,eq1,a,A1,
+D1,E1,Eq,Var,f1,n,N:
+option remember:
+f1:=f mod m1:
+if (1+DEGREE)*(1+ORDER)+5+ORDER>nops(f) then
+#ERROR(`Insufficient data for a recurrence of order`,ORDER, `degree`,DEGREE):
+RETURN(FAIL):
+fi:
+ope:=0:
+var:={}:
+ 
+for i from 0 to ORDER do
+ for j from 0 to DEGREE do
+  ope:=ope+a[i,j]*n^j*N^i:
+  var:=var union {a[i,j]}:
+ od:
+od:
+    
+eq:={}:
+ 
+for n0 from 1 to (1+DEGREE)*(1+ORDER)+4 do
+  eq1:=0:
+ 
+  for i from 0 to ORDER do
+     eq1:=eq1+subs(n=n0,coeff(ope,N,i))*op(n0+i,f1) mod m1:
+  od:
+ 
+   eq:= eq union {eq1}:
+od:
+
+
+Eq:= convert(eq,list):
+Var:= convert(var,list):
+
+
+D1:=nops(Var):
+E1:=nops(Eq):
+if E1<D1 then
+  RETURN(true):
+fi:
+
+A1:=matrix(D1,D1):
+
+for i from 1 to D1-1 do
+for j from 1 to D1 do
+  A1[i,j]:=coeff(Eq[i],Var[j]):
+od:
+od:
+
+for j from 1 to nops(Var) do
+  A1[D1,j]:=coeff(Eq[D1],Var[j]):
+od:
+
+if det(A1) mod m1 <>0  then
+ RETURN(false):
+fi:
+
+if E1-D1>=1 then
+ for j from 1 to nops(Var) do
+  A1[D1,j]:=coeff(Eq[D1+1],Var[j]):
+ od:
+
+if det(A1) mod m1 <>0  then
+ RETURN(false):
+fi:
+fi:
+
+if E1-D1>=2 then
+ for j from 1 to nops(Var) do
+  A1[D1,j]:=coeff(Eq[D1+2],Var[j]):
+ od:
+
+if det(A1) mod m1 <>0  then
+ RETURN(false):
+fi:
+fi:
+
+true:
+
+end:
+###End from Findrec
