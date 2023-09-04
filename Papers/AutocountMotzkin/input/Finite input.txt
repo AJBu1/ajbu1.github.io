@@ -1,0 +1,85 @@
+read `Motzkin.txt`:
+
+print(`Here are examples with restrictions on peak heights, valley heights, and run lengths`):
+print(``):
+print(``):
+print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n`):
+print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+L:=SeqABCDE({},{},{},{},{},100):
+eq:= Aeq(L,x,P):
+if eq=FAIL then 
+  print(eq):
+  print(`Cannot find the equation from the first 101 terms of the sequence`):
+else 
+  print(eq=0):
+fi:
+print(``):
+print(``):
+print(`Here are the terms a(n) from n=0 to n=100`):
+print(``):
+print(L):
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No valley height can be in {1} and no upward run can have length in {1}`):
+print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+L:=SeqABCDE({},{1},{1},{},{},100):
+eq:= Aeq(L,x,P):
+if eq=FAIL then 
+  print(eq):
+  print(`Cannot find the equation from the first 101 terms of the sequence`):
+else 
+  print(eq=0):
+fi:
+print(``):
+print(``):
+print(`Here are the terms a(n) from n=0 to n=100`):
+print(``):
+print(L):
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak can have height in {1,2} and no flat run can have length in {1,2}`):
+print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+L:=SeqABCDE({1,2},{},{},{},{1,2},100):
+eq:= Aeq(L,x,P):
+if eq=FAIL then 
+  print(eq):
+  print(`Cannot find the equation from the first 101 terms of the sequence`):
+else 
+  print(eq=0):
+fi:
+print(``):
+print(``):
+print(`Here are the terms a(n) from n=0 to n=100`):
+print(``):
+print(L):
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak can have height in {2}, no valley can have height in {1}, and no upward run can have length in {3}`):
+print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+L:=SeqABCDE({2},{1},{},{3},{},100):
+eq:= Aeq(L,x,P):
+if eq=FAIL then 
+  print(eq):
+  print(`Cannot find the equation from the first 101 terms of the sequence`):
+else 
+  print(eq=0):
+fi:
+print(``):
+print(``):
+print(`Here are the terms a(n) from n=0 to n=100`):
+print(``):
+print(L):
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
