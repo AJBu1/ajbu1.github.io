@@ -1,0 +1,217 @@
+       Here are examples with restrictions on run lengths
+
+
+
+      Let a(n) be the number of Motzkin paths of length n
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+                                    2  2    
+                   1 + (x - 1) P + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+              No upward run can have length in {1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+          /  2        \      2 / 2        \  2    3  5    
+      1 + \-x  + x - 1/ P + x  \x  - x + 1/ P  + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+             No upward run can have length in {1,2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+        /  2        \      2          2    3  6    4  7    
+    1 + \-x  + x - 1/ P - x  (x - 1) P  + P  x  + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+             No upward run can have length in {1,2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+        /  2        \      2          2    4  8    5  9    
+    1 + \-x  + x - 1/ P - x  (x - 1) P  + P  x  + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+            No downward run can have length in {1,2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+        /  2        \      2          2    3  6    4  7    
+    1 + \-x  + x - 1/ P - x  (x - 1) P  + P  x  + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+               No flat run can have length in {1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+         2                        2 / 2        \  2    
+        x  - x + 1 + (x - 1) P + x  \x  - x + 1/ P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+              No flat run can have length in {1,2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+         3                        2 / 3        \  2    
+        x  - x + 1 + (x - 1) P + x  \x  - x + 1/ P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+ No upward run can have length in {1} and no flat run can have 
+
+    length in {1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+          2           /  4    3    2        \  
+         x  - x + 1 + \-x  + x  - x  + x - 1/ P
+
+               2 / 4    3    2        \  2    3  6    
+            + x  \x  - x  + x  - x + 1/ P  + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+No upward run can have length in {1,2} and no flat run can have 
+
+   length in {1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+      2           /  4    3    2        \      2          2
+     x  - x + 1 + \-x  + x  - x  + x - 1/ P - x  (x - 1) P 
+
+           6 / 2        \  3    4  8    
+        + x  \x  - x + 1/ P  + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+ No upward run can have length in {1} and no flat run can have 
+
+    length in {1,2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+          3           /  5    3    2        \  
+         x  - x + 1 + \-x  + x  - x  + x - 1/ P
+
+               2 / 5    3    2        \  2    3  7    
+            + x  \x  - x  + x  - x + 1/ P  + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+No upward run can have length in {1,2} and no flat run can have 
+
+   length in {1,2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+      3           /  5    3    2        \      2          2
+     x  - x + 1 + \-x  + x  - x  + x - 1/ P - x  (x - 1) P 
+
+          / 3        \  6  3    4  9    
+        + \x  - x + 1/ x  P  + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+No upward run can have length in {1}, no downward run can have 
+
+   length in {1}, and no flat run can have length {1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+            4                                            3  
+/ 2        \            /   5    4    2    \ / 2        \   
+\x  - x + 1/  + (x - 1) \2 x  + x  + x  + 1/ \x  - x + 1/  P
+
+                                                          2   
+      2 /   8      7      3      2          \ / 2        \   2
+   - x  \3 x  - 2 x  + 2 x  - 3 x  + 2 x - 1/ \x  - x + 1/  P 
+
+      8         /   5    4    2    \ / 2        \  3    16  4    
+   + x  (x - 1) \2 x  + x  + x  + 1/ \x  - x + 1/ P  + x   P  = 0
+
+
+                  ----------------------------
+
+
+  Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+No upward run can have length in {1,2} and no flat run can have 
+
+   length {2,3}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+     4    2       /  6    4    2        \      2          2
+    x  - x  + 1 + \-x  + x  - x  + x - 1/ P - x  (x - 1) P 
+
+          6 / 4    2    \  3    7 / 3        \  4    
+       + x  \x  - x  + 1/ P  + x  \x  - x + 1/ P  = 0
+
+
+
+
