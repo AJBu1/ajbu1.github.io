@@ -1,0 +1,200 @@
+       Here are examples with restrictions on run lengths
+
+
+
+      Let a(n) be the number of Motzkin paths of length n
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+                                     2  2    
+                   1 + (-1 + x) P + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+            No upward run can have length in {2*r+1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+                                     3  4    
+                   1 + (-1 + x) P + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+            No upward run can have length in {5*r+1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+                   4  2    5          3    7          4    5  9
+ 1 + (-1 + x) P + x  P  + x  (x + 1) P  + x  (x + 1) P  + P  x 
+
+       6  10    
+    + P  x   = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+            No upward run can have length in {5*r+2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+       / 2        \      2  3    3  6    7          4    5  9
+   1 + \x  + x - 1/ P + P  x  + P  x  + x  (x + 1) P  + P  x 
+
+         6  10    
+      + P  x   = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+        No downward run can have length in {2*r+1,5*r+2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+                     4  8    5  9    6  12    7  13    8  16
+   1 + (-1 + x) P + P  x  + P  x  + P  x   + P  x   + P  x  
+
+         9  17    11  20    
+      + P  x   + P   x   = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+             No flat run can have length in {2*r+1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+                                         2  2    
+               1 + (-1 + x) (x + 1) P + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+          No flat run can have length in {2*r+1,5*r+2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+  8    6    4    
+ x  + x  + x  + 1
+
+                       / 4    3    2        \ / 4    3    2    
+    + (-1 + x) (x + 1) \x  + x  + x  + x + 1/ \x  - x  + x  - x
+
+       \      2 / 8    6    4    \  2    
+    + 1/ P + x  \x  + x  + x  + 1/ P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+  No upward run can have length in {2r+1} and no flat run can 
+
+     have length in {2r+1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+                        2  2            
+                       P  x  - P + 1 = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+ No upward run can have length in {2r+1, 5r+2} and no flat run 
+
+    can have length in {2r+1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+         2  2    3  4    6 / 2    \  4    5  8    10 / 2    \  6
+1 - P + P  x  - P  x  + x  \x  + 1/ P  - P  x  + x   \x  + 1/ P 
+
+      7  12    14 / 2    \  8    9  16    10  18    
+   - P  x   + x   \x  + 1/ P  - P  x   + P   x   = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+  No upward run can have length in {2r+1} and no flat run can 
+
+     have length in {2r+1,5r+2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+ 3  12    3  10    3  8      10    8    3  4    6    4            
+P  x   + P  x   + P  x  + P x   + x  + P  x  + x  + x  - P + 1 = 0
+
+
+                  ----------------------------
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+ No upward run can have length in {2r+1}, no downward run can 
+
+    have length in {2r+1}, and no flat run can have length in 
+
+    {2r+1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+                                        2  4    
+               1 + (x - 1) (x + 1) P + P  x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+ No upward run can have length in {2r+1}, no downward run can 
+
+    have length in {2r+1}, and no flat run can have length in 
+
+    {2r+1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+ 2               / 2        \      4 / 2    \  2    6          3
+x  + 1 + (x - 1) \x  + x + 1/ P + x  \x  + 1/ P  + x  (x + 1) P 
+
+      6 / 2    \  4    
+   + x  \x  + 1/ P  = 0
