@@ -1,0 +1,520 @@
+Here are examples with restrictions on peak heights and valley 
+
+   heights
+
+
+
+      Let a(n) be the number of Motzkin paths of length n
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+                                     2  2    
+                   1 + (-1 + x) P + x  P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+                No peak height can belong to {1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+        2            /   2          \      2 /   2          \  2   
+(-1 + x)  + (-1 + x) \3 x  - 2 x + 1/ P + x  \3 x  - 4 x + 2/ P  = 
+
+  0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+               No peak height can belong to {1,2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+  /   2          \         2
+  \3 x  - 4 x + 2/ (-1 + x) 
+
+                /   4       3       2           \  
+     + (-1 + x) \9 x  - 20 x  + 22 x  - 12 x + 3/ P
+
+       /   6       5       4       3       2          \  2    
+     + \7 x  - 22 x  + 35 x  - 32 x  + 18 x  - 6 x + 1/ P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+              No peak height can belong to {1,2,3}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+/   6       5       4       3       2          \         2      
+\7 x  - 22 x  + 35 x  - 32 x  + 18 x  - 6 x + 1/ (-1 + x)  + (-1
+
+        /    8       7        6        5        4        3
+   + x) \19 x  - 78 x  + 171 x  - 236 x  + 221 x  - 142 x 
+
+         2           \     /    10       9        8        7
+   + 61 x  - 16 x + 2/ P + \13 x   - 66 x  + 181 x  - 324 x 
+
+          6        5        4        3       2           \  2    
+   + 413 x  - 388 x  + 270 x  - 136 x  + 47 x  - 10 x + 1/ P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+              No valley height can belong to {1,2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+        8   /   4      3       2          \         5     /   10
+(-1 + x)  - \3 x  + 4 x  - 10 x  + 8 x - 2/ (-1 + x)  P + \3 x  
+
+        9       8       7       6        5        4        3
+   + 2 x  - 21 x  + 20 x  + 43 x  - 128 x  + 152 x  - 104 x 
+
+         2           \  2    
+   + 43 x  - 10 x + 1/ P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+              No valley height can belong to {2,3}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+   10      9       8       7       6        5        4        3
+3 x   + 2 x  - 21 x  + 20 x  + 43 x  - 128 x  + 152 x  - 104 x 
+
+         2                       /   10      9       8        7
+   + 43 x  - 10 x + 1 + (-1 + x) \9 x   - 4 x  - 50 x  + 100 x 
+
+         6        5        4        3       2           \     /  
+   - 21 x  - 156 x  + 250 x  - 192 x  + 84 x  - 20 x + 2/ P + \7 
+
+   10       9       8       7       6       5       4       3
+  x   - 12 x  - 14 x  + 60 x  - 49 x  - 34 x  + 99 x  - 88 x 
+
+         2           \         2  2    
+   + 41 x  - 10 x + 1/ (-1 + x)  P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+   No peak height can belong to {1} and no valley height can 
+
+      belong to {1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+            4   / 2          \         3  
+    (-1 + x)  + \x  - 4 x + 2/ (-1 + x)  P
+
+         / 6      5      4       3       2          \  2    
+       + \x  - 2 x  + 9 x  - 16 x  + 14 x  - 6 x + 1/ P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+  No peak height can belong to {1,2} and no valley height can 
+
+     belong to {1}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+        6   /   4      3       2          \         3  
+(-1 + x)  + \3 x  - 6 x  + 11 x  - 8 x + 2/ (-1 + x)  P
+
+     / 4    3      2          \ /   4      3      2          \  2   
+   + \x  - x  + 3 x  - 3 x + 1/ \3 x  - 7 x  + 9 x  - 5 x + 1/ P  = 
+
+  0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+  No peak height can belong to {1,2} and no valley height can 
+
+     belong to {1,2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+         8   / 4      3       2          \         5     / 10
+ (-1 + x)  + \x  - 8 x  + 12 x  - 8 x + 2/ (-1 + x)  P + \x  
+
+         9       8        7        6        5        4        3
+    - 4 x  + 30 x  - 100 x  + 195 x  - 246 x  + 209 x  - 120 x 
+
+          2           \  2    
+    + 45 x  - 10 x + 1/ P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+ No peak height can belong to {1,2,3} and no valley height can 
+
+    belong to {1,2,3}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+        12
+(-1 + x)  
+
+     / 6       5       4       3       2           \         7     
+   + \x  - 12 x  + 30 x  - 40 x  + 30 x  - 12 x + 2/ (-1 + x)  P + 
+
+  / 14      13       12        11        10         9         8
+  \x   - 6 x   + 63 x   - 308 x   + 931 x   - 1946 x  + 2975 x 
+
+           7         6         5         4        3       2
+   - 3424 x  + 3002 x  - 2002 x  + 1001 x  - 364 x  + 91 x 
+
+             \  2    
+   - 14 x + 1/ P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+  No peak height  can belong to {2} and no valley height  can 
+
+     belong to {1,2}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+          8   / 4      3       2          \         5     / 10
+  (-1 + x)  - \x  + 4 x  - 10 x  + 8 x - 2/ (-1 + x)  P + \x  
+
+          9      8       7       6        5        4        3
+     + 2 x  - 5 x  - 12 x  + 71 x  - 140 x  + 154 x  - 104 x 
+
+           2           \  2    
+     + 43 x  - 10 x + 1/ P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+ No peak height  can belong to {2,5} and no valley height  can 
+
+    belong to {3,6,9}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+                 4         3        2   /   18       17       16
+1 - 22 x + 5996 x  - 1400 x  + 224 x  + \7 x   - 46 x   + 23 x  
+
+          15        14        13         12         11         10
+   + 392 x   - 652 x   - 698 x   + 2719 x   - 1680 x   - 2844 x  
+
+           9         8         7         6         5         4
+   + 5698 x  - 3201 x  - 1820 x  + 4537 x  - 3892 x  + 2006 x 
+
+          3        2           \         6  2   /    20        19
+   - 672 x  + 144 x  - 18 x + 1/ (-1 + x)  P  + \23 x   - 156 x  
+
+          18         17         16        15          14
+   + 130 x   + 1244 x   - 3083 x   - 500 x   + 11262 x  
+
+            13         12          11          10          9
+   - 15392 x   - 2168 x   + 30116 x   - 37554 x   + 12968 x 
+
+            8          7          6          5         4
+   + 21418 x  - 38280 x  + 32892 x  - 18528 x  + 7278 x 
+
+           3        2           \         3          21        20
+   - 1992 x  + 364 x  - 40 x + 2/ (-1 + x)  P - 132 x   + 154 x  
+
+          19         18         17          16          15
+   + 976 x   - 3254 x   + 1470 x   + 10211 x   - 22776 x  
+
+         22          14          13          12          11
+   + 19 x   + 12471 x   + 27704 x   - 65132 x   + 57248 x  
+
+           10          9          8          7          6
+   - 2032 x   - 58520 x  + 84228 x  - 71280 x  + 42399 x 
+
+            5    
+   - 18552 x  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+          No valley height  can belong to {1,2,3,4,5}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+        20   /   10       9       8       7        6        5
+(-1 + x)   - \9 x   - 20 x  + 10 x  + 80 x  - 248 x  + 380 x 
+
+          4        3       2           \         11     /    22
+   - 362 x  + 224 x  - 88 x  + 20 x - 2/ (-1 + x)   P + \21 x  
+
+          21        20        19         18         17
+   - 130 x   + 345 x   - 120 x   - 2266 x   + 8632 x  
+
+            16          15          14           13           12
+   - 16140 x   + 11336 x   + 27845 x   - 115162 x   + 234449 x  
+
+             11           10           9           8           7
+   - 338064 x   + 376234 x   - 333826 x  + 239191 x  - 138720 x 
+
+            6          5         4         3        2           \ 
+   + 64770 x  - 24036 x  + 6934 x  - 1500 x  + 229 x  - 22 x + 1/ 
+
+   2    
+  P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+ No peak height can belong to {1,2,3} and no valley height can 
+
+    belong to {1,2,3,4,5}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+/   26       25        24        23         22         21
+\3 x   - 28 x   + 198 x   - 384 x   - 1030 x   + 6154 x  
+
+           20         19          18           17          16
+   - 9383 x   - 8992 x   + 60818 x   - 103114 x   + 39585 x  
+
+             15           14           13           12
+   + 171944 x   - 404836 x   + 425674 x   - 125779 x  
+
+             11           10           9           8           7
+   - 338240 x   + 678394 x   - 731282 x  + 556025 x  - 319184 x 
+
+             6          5          4         3        2       
+   + 141258 x  - 48202 x  + 12495 x  - 2384 x  + 316 x  - 26 x
+
+      \         2            /   28       27        26         25
+   + 1/ (-1 + x)  + (-1 + x) \9 x   - 84 x   + 666 x   - 1920 x  
+
+          24          23          22          21           20
+   - 732 x   + 19092 x   - 50326 x   + 29736 x   + 156671 x  
+
+             19           18         17            16
+   - 495084 x   + 627966 x   - 3232 x   - 1463984 x  
+
+              15            14           13            12
+   + 2866328 x   - 2802196 x   + 698048 x   + 2450612 x  
+
+              11            10            9            8
+   - 4850592 x   + 5393600 x   - 4324992 x  + 2671300 x 
+
+              7           6           5          4         3
+   - 1299804 x  + 500314 x  - 151152 x  + 35158 x  - 6084 x 
+
+          2           \     /   30       29        28         27
+   + 738 x  - 56 x + 2/ P + \7 x   - 64 x   + 548 x   - 2044 x  
+
+           26          25          24          23          22
+   + 1893 x   + 11846 x   - 51177 x   + 80152 x   + 32791 x  
+
+             21           20           19           18
+   - 422990 x   + 931947 x   - 897208 x   - 447640 x  
+
+              17            16            15           14
+   + 2975822 x   - 5093153 x   + 4658560 x   - 916828 x  
+
+              13            12            11            10
+   - 4508260 x   + 8766698 x   - 9979992 x   + 8357218 x  
+
+              9            8            7           6           5
+   - 5483676 x  + 2885610 x  - 1225792 x  + 418888 x  - 113776 x 
+
+            4         3        2           \  2    
+   + 24032 x  - 3808 x  + 426 x  - 30 x + 1/ P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+No peak height can belong to {1,2,3,4} and no valley height can 
+
+   belong to {1,2,3,4,5}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+/   26       25       24        23         22         21
+\7 x   - 52 x   + 90 x   + 424 x   - 2188 x   + 2350 x  
+
+           20          19          18          17           16
+   + 9987 x   - 43776 x   + 73268 x   - 22188 x   - 169322 x  
+
+             15           14           13           12
+   + 421784 x   - 500222 x   + 206244 x   + 391106 x  
+
+             11            10            9           8
+   - 967328 x   + 1212990 x   - 1072220 x  + 722862 x 
+
+             7           6          5          4         3
+   - 381872 x  + 159084 x  - 51920 x  + 13032 x  - 2432 x 
+
+          2           \         2            /    28        27
+   + 318 x  - 26 x + 1/ (-1 + x)  + (-1 + x) \19 x   - 160 x  
+
+          26        25         24          23         22
+   + 424 x   + 648 x   - 6762 x   + 14984 x   + 8252 x  
+
+             21           20           19           18
+   - 129192 x   + 348641 x   - 424820 x   - 114902 x  
+
+              17            16            15            14
+   + 1495016 x   - 3043334 x   + 3267640 x   - 1047908 x  
+
+              13            12            11            10
+   - 3085152 x   + 7077210 x   - 8931020 x   + 8160582 x  
+
+              9            8            7           6           5
+   - 5799632 x  + 3291380 x  - 1503920 x  + 551912 x  - 160832 x 
+
+            4         3        2           \     /    30
+   + 36428 x  - 6188 x  + 742 x  - 56 x + 2/ P + \13 x  
+
+          29        28       27         26          25
+   - 122 x   + 425 x   - 60 x   - 4541 x   + 15908 x  
+
+            24          23           22           21           20
+   - 14254 x   - 70344 x   + 318611 x   - 635790 x   + 539251 x  
+
+             19            18            17            16
+   + 670904 x   - 3106998 x   + 5456388 x   - 5334862 x  
+
+              15            14             13             12
+   + 1149920 x   + 6095866 x   - 13084264 x   + 16549732 x  
+
+               11             10            9            8
+   - 15525888 x   + 11525612 x   - 6943156 x  + 3425566 x 
+
+              7           6           5          4         3
+   - 1384288 x  + 455002 x  - 119938 x  + 24773 x  - 3864 x 
+
+          2           \  2    
+   + 428 x  - 30 x + 1/ P  = 0
+
+
+                  ----------------------------
+
+
+ Let a(n) be the number of Motzkin paths of length n with the 
+
+    following restrictions
+ No peak height can belong to {1,2,3,4,5} and no valley height 
+
+    can belong to {1,2,3,4,5}
+The generating function P(x) of the sequence a(n) satisfies the 
+
+   algebraic equation
+/    28       27       26        25         24        23
+\19 x   - 82 x   + 41 x   + 760 x   - 2436 x   - 614 x  
+
+            22          21           20          19           18
+   + 25641 x   - 89112 x   + 156495 x   - 90556 x   - 287806 x  
+
+             17            16            15           14
+   + 966116 x   - 1524291 x   + 1285840 x   + 115432 x  
+
+              13            12            11            10
+   - 2258784 x   + 4120568 x   - 4826158 x   + 4253315 x  
+
+              9            8           7           6          5
+   - 2963924 x  + 1663741 x  - 755700 x  + 276494 x  - 80464 x 
+
+            4         3        2           \         2            
+   + 18216 x  - 3094 x  + 371 x  - 28 x + 1/ (-1 + x)  + (-1 + x) 
+
+  /    30        29        28         27         26         25
+  \53 x   - 266 x   + 373 x   + 1600 x   - 8380 x   + 9188 x  
+
+            24           23           22           21          20
+   + 53250 x   - 289048 x   + 724117 x   - 977622 x   + 79895 x  
+
+              19            18             17            16
+   + 2926728 x   - 7508682 x   + 10612780 x   - 7966010 x  
+
+              15             14             13             12
+   - 2406144 x   + 17506840 x   - 30652120 x   + 36052396 x  
+
+               11             10             9            8
+   - 32593424 x   + 23689808 x   - 14094212 x  + 6903270 x 
+
+              7           6           5          4         3
+   - 2778304 x  + 911276 x  - 239980 x  + 49550 x  - 7728 x 
+
+          2           \     /    32        31        30        29
+   + 856 x  - 60 x + 2/ P + \37 x   - 212 x   + 462 x   + 564 x  
+
+           28          27          26           25           24
+   - 6299 x   + 14066 x   + 16037 x   - 201512 x   + 688655 x  
+
+              23            22           21            20
+   - 1360518 x   + 1363779 x   + 930404 x   - 6685371 x  
+
+               19             18             17            16
+   + 14316504 x   - 18374308 x   + 12080848 x   + 7172473 x  
+
+               15             14             13             12
+   - 34034922 x   + 57431553 x   - 67675148 x   + 62464525 x  
+
+               11             10             9            8
+   - 47033626 x   + 29390751 x   - 15339528 x  + 6685577 x 
+
+              7           6           5          4         3
+   - 2420418 x  + 720393 x  - 173404 x  + 32931 x  - 4750 x 
+
+          2           \  2    
+   + 489 x  - 32 x + 1/ P  = 0
