@@ -1,0 +1,215 @@
+read `MotzkinClever.txt`:
+
+print(`Here are examples with restrictions on peak heights and valley heights`):
+print(``):
+print(``):
+print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n`):
+eq:=fAB({},{},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {1}`):
+eq:=fAB({1},{},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {1,2}`):
+eq:=fAB({1,2},{},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {1,2,3}`):
+eq:=fAB({1,2,3},{},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No valley height can belong to {1,2}`):
+eq:=fAB({},{1,2},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No valley height can belong to {2,3}`):
+eq:=fAB({},{2,3},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {1} and no valley height can belong to {1}`):
+eq:=fAB({1},{1},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {1,2} and no valley height can belong to {1}`):
+eq:=fAB({1,2},{1},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {1,2} and no valley height can belong to {1,2}`):
+eq:=fAB({1,2},{1,2},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {1,2,3} and no valley height can belong to {1,2,3}`):
+eq:=fAB({1,2,3},{1,2,3},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height  can belong to {2} and no valley height  can belong to {1,2}`):
+eq:=fAB({2},{1,2},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height  can belong to {2,5} and no valley height  can belong to {3,6,9}`):
+eq:=fAB({2,5},{3,5,8},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No valley height  can belong to {1,2,3,4,5}`):
+eq:=fAB({},{1,2,3,4,5},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {1,2,3} and no valley height can belong to {1,2,3,4,5}`):
+eq:=fAB({1,2,3},{2,4,6,8,10},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {1,2,3,4} and no valley height can belong to {1,2,3,4,5}`):
+eq:=fAB({1,2,3,4},{2,4,6,8,10},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {1,2,3,4,5} and no valley height can belong to {1,2,3,4,5}`):
+eq:=fAB({1,2,3,4,5},{2,4,6,8,10},x,P):
+if eq=FAIL then
+  print(eq):
+  print(`cannot find equation`):
+else
+  print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+  print(eq=0):
+fi:
+
+
