@@ -31,29 +31,95 @@ header{
 }
     </style>
 
-  <body>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: times
+}
+
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+    color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: Arial;
+  margin: 0;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: hsl(240, 100%, 90%);
+  color: black;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+</style>
+</head>
+<body style="background-color:white;">
+
 
     <!-- Navigation bar -->
-
     <nav>
-
       <ul>
-
         <li><a href="index.html">Home</a></li>
-
-		 <li><a href="teaching.html" class="current">Teaching</a></li>
-
-        <li><a href="research.html">Research</a></li>
-
-		<li><a href="maplepackages.html">Maple Packages</a></li>
-
-         <li><a href="A Bu CV (current).pdf">CV</a></li>
-
+		 <div class="dropdown">
+   <li>  <button class="dropbtn">Teaching
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+    <a href="ProfessionalDevelopment.html"> Professional Development</a>
+  <li class='navitem active'>  <a href="teaching.html" class="current">Teaching Experience</a>  </li>
+      </div>
+</div>
+  </div>
+     <div class="dropdown">
+<li>  <button class="dropbtn">Research
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="papers.html">Papers</a>
+    <a href="MaplePackages.html">Maple Packages</a>
+    </div>
+  </div>
+        <li><a href="A Bu CV (Current).pdf">CV</a></li>
       </ul>
-
     </nav>
 
-    
 
     <!-- Header -->
 
@@ -67,7 +133,8 @@ header{
 
 
     <section>
-
+<br>
+ <h3> This page covers my experiences teaching.  For additional professional development experiences related to teaching and education please go <a href="ProfessionalDevelopment.html">here</a>.  </h3>
     <h2> Current Courses </h2>
 	I currently funded by the COVID Dissertation Extension Funding Program and am not teaching any courses.
 
@@ -78,59 +145,113 @@ header{
 
  <h3> Primary Instructor Experience </h3>
 
-<li> Taught <a href="https://www.math.rutgers.edu/academics/undergraduate/courses/942-01-640-152-calculus-ii-for-the-mathematical-and-physical-sciences" target="_blank">Math&nbsp;152 (Calculus II for the Mathematical and Physical Sciences)</a> for Mathematics Department at Rutgers University (Summer 2022: <a href="Summer2022 Evaluations.pdf">Evaluations</a>, Summer 2023)</li>
-<li>Taught Algebra I during the summer session at <a href="https://www.newarka.edu" target="_blank">Newark Academy</a> (Summer 2018)</li>
+<table style="width:100%">
+  <tr>
+    <th>Course</th>
+    <th> Institution </th>
+    <th>Term </th>
+  </tr>
+  <tr>
+    <td><a href="https://www.math.rutgers.edu/academics/undergraduate/courses/942-01-640-152-calculus-ii-for-the-mathematical-and-physical-sciences" target="_blank">Math&nbsp;152 (Calculus II for the Mathematical and Physical Sciences)</a></td>
+    <td> <a href="https://www.math.rutgers.edu" target="_blank">Rutgers University</a></td>
+    <td> Summer 2023 <br> Summer 2022: <a href="Summer2022 Evaluations.pdf">Evaluations</a> </td>
+  </tr>
+  <tr>
+    <td> Algebra I </td>
+    <td> <a href="https://www.newarka.edu" target="_blank">Newark Academy</a></td>
+    <td>Summer 2018</td>
+  </tr>
+</table>
 
-
-
-
-
-<h3> Other Teaching Experience </h3>
-<li> Head TA  (Summer 2023)
-
-<li>Teaching assistant for <a href="https://www.math.rutgers.edu/academics/undergraduate/courses/948-01-640-250-introductory-linear-algebra" target="_blank">Math&nbsp;250 (Linear Algebra)</a> for Mathematics Department at Rutgers University (Fall 2022)</li>
-
-
-<li>Teaching assistant for <a href="https://www.math.rutgers.edu/academics/undergraduate/courses/942-01-640-152-calculus-ii-for-the-mathematical-and-physical-sciences" target="_blank">Math&nbsp;152 (Calculus II for the Mathematical and Physical Sciences)</a> for Mathematics Department at Rutgers University (Spring 2020)</li>
-
-
-
- <li>Teaching assistant for <a href="https://www.math.rutgers.edu/academics/undergraduate/courses/938-01-640-135-calculus-i" target="_blank">Math&nbsp;135 (Calculus I)</a> for Mathematics Department at Rutgers University (Fall 2019, Fall 2021)</li>
-
-
-
- <li>Grader for <a href="https://www.math.rutgers.edu/academics/undergraduate/courses/954-01-640-300-introduction-to-mathematical-reasoning" target="_blank">Math&nbsp;300 (Introduction to Mathematical Reasoning)</a> for Mathematics Department at Rutgers University (Fall 2018, Spring 2019)</li>
-
-
-
- <li>Grader for <a href="https://www.math.rutgers.edu/academics/undergraduate/courses/960-01-640-348-cryptography" target="_blank">Math&nbsp;348 (Cryptography)</a> for Mathematics Department at Rutgers University (Spring 2019)</li>
-
-
-
- <li>Grader for <a href="https://www.math.rutgers.edu/academics/undergraduate/courses/961-01-640-350-linear-algebra" target="_blank">Math&nbsp;350 (Linear Algebra)</a> for Mathematics Department at Rutgers University (Fall 2018)</li>
-
-
-
- <li> Long-term and per diem substitute teacher in mathematics at <a href="https://www.newarka.edu" target="_blank">Newark Academy</a> (January-August 2018)
-
- <ul> Courses (regular and honors level): 6th grade, Pre-Algebra, Algebra I, Geometry, Algebra II/Trig, Precalculus, AB/BC Calculus, IB Math </ul></li>
-
-<li> Private Tutor (August 2017-August 2019) 
- <ul> <li> High school math (algebra, geometry, precalculus, calculus) </li> 
-      <li> SAT Prep </li> 
-      <li> ACT Prep </li> 
+ <h3> Other Teaching Experience</h3>
+For the Summer Session in 2023, I was the Head TA for the math department at <a href="https://www.math.rutgers.edu" target="_blank">Rutgers University</a>. <br>
+<ul> The Head TA serves as a mentor and resource for graduate students that are teaching a summer course, particularly those who have never been the instructor of record. The main responsibilities include:
+ <li>Answering any questions graduate students may have about teaching a summer course </li> 
+ <li> Conduct teaching observations for graduate students and write a review for the math department</li> 
+ <li> Provide feedback and suggestions to the instructors during the semester</li> 
 </ul></li>
 
- <li> Student teacher at <a href="https://www.brightonhighschool.org/" target="_blank">Brighton High School</a> (Spring 2015) 
-<ul> Courses: Physics (Special Education) and Advanced Algebra</ul></li>
+<table style="width:100%">
+  <tr>
+   <th>Position</th>  <th>Course</th> 
+    <th> Institution </th>
+    <th>Term </th>
+  </tr>
+  <tr> <td> Teaching Assistant </td>
+    <td><a href="https://www.math.rutgers.edu/academics/undergraduate/courses/948-01-640-250-introductory-linear-algebra" target="_blank">Math&nbsp;250 (Linear Algebra)</a></td>
+    <td><a href="https://www.math.rutgers.edu" target="_blank">Rutgers University</a></td>
+    <td>Fall 2022 </td>
+  </tr>
+  <tr>
+    <td> Teaching Assistant </td>
+    <td> <a href="https://www.math.rutgers.edu/academics/undergraduate/courses/938-01-640-135-calculus-i" target="_blank">Math&nbsp;135 (Calculus I)</a></td>
+    <td><a href="https://www.math.rutgers.edu" target="_blank">Rutgers University</a></td>
+    <td>Fall 2021 (online) <br> Fall 2019</td>
+  </tr>
 
+  <tr>
+    <td> Teaching Assistant </td>
+    <td> <a href="https://www.math.rutgers.edu/academics/undergraduate/courses/942-01-640-152-calculus-ii-for-the-mathematical-and-physical-sciences" target="_blank">Math&nbsp;152 (Calculus II for the Mathematical and Physical Sciences)</a></td>
+    <td><a href="https://www.math.rutgers.edu" target="_blank">Rutgers University</a></td>
+    <td>Spring 2020</td>
+  </tr>
 
+  <tr>
+    <td> Grader </td>
+    <td> <a href="https://www.math.rutgers.edu/academics/undergraduate/courses/954-01-640-300-introduction-to-mathematical-reasoning" target="_blank">Math&nbsp;300 (Introduction to Mathematical Reasoning)</a> </td>
+    <td><a href="https://www.math.rutgers.edu" target="_blank">Rutgers University</a></td>
+    <td>Spring 2019 <br> Fall 2018</td>
+  </tr>
 
- <li> Full-Time Classroom Intern at <a href="https://www.winstonschool.org/about-us/" target="_blank">The Winston School</a> (May-June 2013)</li>
+<tr>
+    <td> Grader </td>
+    <td> <a href="https://www.math.rutgers.edu/academics/undergraduate/courses/960-01-640-348-cryptography" target="_blank">Math&nbsp;348 (Cryptography)</a> </td>
+    <td><a href="https://www.math.rutgers.edu" target="_blank">Rutgers University</a></td>
+    <td>Spring 2019</td>
+  </tr>
 
+ <tr>
+    <td> Grader </td>
+    <td> <a href="https://www.math.rutgers.edu/academics/undergraduate/courses/961-01-640-350-linear-algebra" target="_blank">Math&nbsp;350 (Linear Algebra)</a> </td>
+    <td><a href="https://www.math.rutgers.edu" target="_blank">Rutgers University</a></td>
+    <td>Fall 2018</td>
+  </tr>
 
+ <tr>
+    <td> Long Term and Per diem substitute</td>
+    <td> Regular and Honors level: 6th grade, Pre-Algebra, Algebra I, Geometry, Algebra II/Trig, Precalculus, AB/BC Calculus, IB Math  </td>
+    <td> <a href="https://www.newarka.edu" target="_blank">Newark Academy</a> </td>
+    <td>January-August 2018</td>
+  </tr>
 
-<li> Classroom Volunteer at <a href="http://steppingstonesschoolnj.com/" target="_blank">Stepping Stones School</a> (Summer 2012, Summer 2013, Summer 2014)</li>
+ <tr>
+    <td> Private Tutor </td>
+    <td> High school math (algebra, geometry, precalculus, calculus), SAT Prep, ACT prep  </td>
+    <td>  </td>
+    <td> August 2017-August 2019</td>
+  </tr>
+
+ <tr>
+    <td> Student Teacher </td>
+    <td> Physics (Special Education) and Advanced Algebra  </td>
+    <td> <a href="https://www.brightonhighschool.org/" target="_blank">Brighton High School</a>  </td>
+    <td> Spring 2015</td>
+  </tr>
+
+ <tr>
+    <td> Full Time Classroom Intern </td>
+    <td> Various classes grades 4-8 </td>
+    <td>  <a href="https://www.winstonschool.org/about-us/" target="_blank">The Winston School</a>  </td>
+    <td> May-June 2013</td>
+  </tr>
+
+ <tr>
+    <td>  Classroom Volunteer </td>
+    <td>  </td>
+    <td>  <a href="http://steppingstonesschoolnj.com/" target="_blank">Stepping Stones School</a>  </td>
+    <td> Summer 2012, Summer 2013, Summer 2014</td>
+  </tr>
+</table>
 
     </section>
 
