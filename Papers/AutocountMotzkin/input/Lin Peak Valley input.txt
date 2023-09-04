@@ -1,0 +1,149 @@
+read `Motzkin.txt`:
+
+print(`Here are examples with restrictions on peak heights and valley heights`):
+print(``):
+print(``):
+print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n`):
+L:=SeqABCDEr({},{},{},{},{},r,100):
+eq:= Aeq(L,x,P):
+print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+if eq=FAIL then 
+  print(eq):
+  print(`Cannot find the equation from the first 101 terms of the sequence`):
+print(eq=0):
+else 
+  print(eq=0):
+fi:
+print(``):
+print(``):
+print(`Here are the terms a(n) from n=0 to n=100`):
+print(``):
+print(L):
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {2r+1}`):
+L:=SeqABCDEr({2*r+1},{},{},{},{},r,100):
+eq:= Aeq(L,x,P):
+print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+if eq=FAIL then 
+  print(eq):
+  print(`Cannot find the equation from the first 101 terms of the sequence`):
+print(eq=0):
+else 
+  print(eq=0):
+fi:
+print(``):
+print(``):
+print(`Here are the terms a(n) from n=0 to n=100`):
+print(``):
+print(L):
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No valley height can belong to {2r+1}`):
+L:=SeqABCDEr({},{2*r+1},{},{},{},r,100):
+eq:= Aeq(L,x,P):
+print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+if eq=FAIL then 
+  print(eq):
+  print(`Cannot find the equation from the first 101 terms of the sequence`):
+print(eq=0):
+else 
+  print(eq=0):
+fi:
+print(``):
+print(``):
+print(`Here are the terms a(n) from n=0 to n=100`):
+print(``):
+print(L):
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {3r+1}`):
+L:=SeqABCDEr({3*r+1},{},{},{},{},r,100):
+eq:= Aeq(L,x,P):
+print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+if eq=FAIL then 
+  print(eq):
+  print(`Cannot find the equation from the first 101 terms of the sequence`):
+print(eq=0):
+else 
+  print(eq=0):
+fi:
+print(``):
+print(``):
+print(`Here are the terms a(n) from n=0 to n=100`):
+print(``):
+print(L):
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {2r+1} and no valley can belong to {2r+1}`):
+L:=SeqABCDEr({2*r+1},{2*r+1},{},{},{},r,100):
+eq:= Aeq(L,x,P):
+print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+if eq=FAIL then 
+  print(eq):
+  print(`Cannot find the equation from the first 101 terms of the sequence`):
+print(eq=0):
+else 
+  print(eq=0):
+fi:
+print(``):
+print(``):
+print(`Here are the terms a(n) from n=0 to n=100`):
+print(``):
+print(L):
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {2*r+1,3*r+1}`):
+L:=SeqABCDEr({2*r+1,3*r+1},{},{},{},{},r,100):
+eq:= Aeq(L,x,P):
+print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+if eq=FAIL then 
+  print(eq):
+  print(`Cannot find the equation from the first 101 terms of the sequence`):
+print(eq=0):
+else 
+  print(eq=0):
+fi:
+print(``):
+print(``):
+print(`Here are the terms a(n) from n=0 to n=100`):
+print(``):
+print(L):
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`Let a(n) be the number of Motzkin paths of length n with the following restrictions`):
+print(`No peak height can belong to {2*r+1} and no valley height can belong to {3*r+1}`):
+L:=SeqABCDEr({2*r+1},{3*r+1},{},{},{},r,100):
+eq:= Aeq(L,x,P):
+print(`The generating function P(x) of the sequence a(n) satisfies the algebraic equation`):
+if eq=FAIL then 
+  print(eq):
+  print(`Cannot find the equation from the first 101 terms of the sequence`):
+print(eq=0):
+else 
+  print(eq=0):
+fi:
+print(``):
+print(``):
+print(`Here are the terms a(n) from n=0 to n=100`):
+print(``):
+print(L):
