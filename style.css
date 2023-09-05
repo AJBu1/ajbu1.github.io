@@ -12,7 +12,7 @@ header{
 	top: 10px;
 	height:160 px;
 	z-index:2;
-	background-color: hsl(0, 70%, 45%);
+	background-color: Dodger Blue;
 	color:#FFFFFF;
 }
 
@@ -22,9 +22,21 @@ h1 {
   margin-bottom:0;/* a scarlet color */
   
 }
+h2{
+  color: #B90000; /* a duller scarlet color */
+font-size: 24px;
+font-family: Arial;
+}
+h3{
+  color: #0000FF; /* a duller scarlet color */
+	font-size: 18px;
+	font-family: Arial;
+}
 
-h2 {
-  color: hsl(0, 70%, 40%); /* a duller scarlet color */
+h4{
+  color: #000000; /* a duller scarlet color */
+font-size: 15px;
+	font-family: Arial;
 }
 
 /* CSS to center text and images */
@@ -42,7 +54,7 @@ img.center, figure.center  {
 
 
 nav {
-  background-color: DodgerBlue; 
+  background-color: #4682B4; 
   width: 100%;
 }
 
@@ -75,7 +87,7 @@ nav ul  li a:hover {
 }
 
 nav ul li a.current {
-  background-color: Blue;
+  background-color: #6495ED;
   color: white;
 }
 
