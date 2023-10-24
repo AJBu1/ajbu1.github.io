@@ -1,0 +1,247 @@
+
+
+<html>
+
+<head>
+
+<title>
+
+Explicit Generating Functions for the Sum of the Areas Under Dyck and Motzkin Paths and for Their Powers</title>
+
+</head>
+
+
+
+
+
+<body>
+
+<Font Size=+3>
+
+<B>
+<Font Color=Red>
+
+<Font size=+5>
+
+<center>
+
+Explicit Generating Functions for the Sum of the Areas Under Dyck and Motzkin Paths and for Their Powers <br>
+By <a href ="../../index.html">AJ Bu</a> </center>
+
+<P>
+
+
+<hr>
+
+<A HREF
+
+="http://ecajournal.haifa.ac.il/Volume2021/ECA2021_S2A12.pdf">
+
+PDF</A> &nbsp;
+
+
+<hr>
+
+</font>
+
+</font>
+
+<P>
+
+
+
+
+<P>
+
+In this paper, we describe how to find the generating function for the sum of the areas under
+Motzkin paths of length n through a method that uses dynamical programming, which we show
+can be expanded for paths with any given set of steps that start and end at height zero and never
+have a negative height. We then explore the case where, instead of a set of steps, we are given
+the quadratic functional equation 
+<center>f (x, q) = P (x, q) + Q(x, q)f (x, q) + R(x, q)f (x, q)f (qx, x). </center>
+We
+present a fully automated method for finding perturbation expansions of the solutions f (x, q) to
+such quadratic functional equations and demonstrate this method using Motzkin paths. More
+importantly, we combine computer algebra with calculus to automatically find 
+<center> d^k/dq^k[f(x,q)]|_{q=1}</center>
+explicitly expressed in terms of radicals. We use Dyck and Motzkin paths to exemplify how this
+can be used to find explicit generating functions for the sum of the areas under such paths and
+for the sum of a given power of the areas.
+
+
+
+
+<hr>
+
+<P>
+
+<h2>Maple package </h2>
+
+<UL>
+
+<LI>
+
+<A HREF="qEW.txt">qEW.txt</A>
+
+<P>
+
+
+
+</UL>
+
+
+
+<br>
+
+<P>
+
+<hr>
+
+<P>
+
+<h2>Sample Input and Output Files for qEW.txt</h2>
+
+<P>
+
+<UL> 
+
+
+
+<LI> Suppose D(x,q) is the bivariate generating function for Dyck paths of length n and area m.
+This provides: 
+<ul>
+<LI> up to the 10th derivative of D(x,q) with respect to q evaluated at q=1 </LI> 
+<LI> The generating functions for
+<ul>
+ <LI>the sum areas under Dyck paths of length n</LI> 
+<LI> the sum of the squares of the areas under Dyck paths of length n </LI> 
+<LI> the sum of the cubes of the areas under Dyck paths of length n </LI> 
+</ul>
+</LI> 
+<LI> the average area under Dyck paths of semi-length n for n=1,...,250 and the variances</LI> 
+</LI> 
+<br>
+
+The <A HREF="./input/Dyck Derivatives input.txt">input</A> gives you 
+
+the <A HREF="./output/Dyck Derivatives Output.txt">output</A>.
+</LI>
+</ul>
+<P>
+
+
+
+
+
+<LI>
+Suppose M(x,q) is the bivariate generating function for Motzkin paths of length n and area m.
+This provides:
+<ul> 
+<LI> up to the 10th derivative of M(x,q) with respect to q evaluated at q=1 </LI> 
+<LI> The generating functions for
+<ul>
+ <LI>the sum areas under Motzkin paths of length n</LI> 
+<LI> the sum of the squares of the areas under Motzkin paths of length n </LI> 
+<LI> the sum of the cubes of the areas under Motzkin paths of length n </LI> 
+</ul> </LI> 
+<LI> the average area under Motzkin paths of length n for n=1,...,250 and the variances</LI> 
+<br>
+
+The <A HREF="./input/Motzkin Derivatives input.txt">input</A> gives you 
+
+the <A HREF="./output/Motzkin Derivatives output.txt">output</A>.
+</ul> 
+<P>
+
+
+
+<LI>
+
+This uses the procedure qnwdK to verify the outputs given by the procedures SeqF1 and DerK for Dyck paths
+
+<br>
+
+The <A HREF="./input/testing for Dyck input.txt">input</A> gives you 
+
+the <A HREF="./output/testing for Dyck output.txt">output</A>.
+
+<P>
+
+
+
+
+
+<LI>
+This uses the procedure qnwdK to verify the outputs given by the procedures SeqF1 and DerK for Motzkin paths
+
+<br>
+
+The <A HREF="./input/testing for Motzkin input.txt">input</A> gives you 
+
+the <A HREF="./output/testing for Motzkin output.txt">output</A>.
+
+<P>
+
+<LI>
+This uses the procedure qnwdK to provide the enumerating function for the total area under paths of lengths 0 to 20 with steps from a given set S
+<br>
+
+The <A HREF="./input/qnwdK input.txt">input</A> gives you 
+
+the <A HREF="./output/qnwdK output.txt">output</A>.
+
+<P>
+
+
+
+</UL>
+
+
+
+<hr>
+
+
+
+
+
+
+<A HREF
+
+
+
+="../../papers.html">
+
+
+
+AJ Bu's Papers
+
+
+
+</A>
+
+
+
+<P><A HREF
+
+
+
+="../../index.html">
+
+
+
+AJ Bu's Home Page
+
+
+
+</A>
+
+
+
+
+
+
+
+
+</body>
+
+</html>
