@@ -1,0 +1,119 @@
+read `qEW.txt`:
+print(`Let D(x,q) be the bivariate weight enumerator for Dyck paths of length n and area m.`):
+DyckDer:=DerK(1,0,x^2*q,q,x,11,f):
+print(``):  print(`----------------------------`): print(``):
+print(` D(x,1) is`):
+print(DyckDer[1]):
+print(`The Maclaurin polynomial of order 50 of D(x,1) is`):
+add(coeff(taylor(DyckDer[1],x=0,54),x,i)*x^i,i=0..50);
+print(`This is the enumerating function for Dyck paths of lengths 0 to 50`):
+
+print(``):  print(`----------------------------`): print(``):
+
+print(`The first derivative with respect to q of D(x,q)`):
+print(`evaluated at q=1 is`):
+print(DyckDer[2]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(DyckDer[2],x=0,54),x,i)*x^i,i=0..50);
+print(`This is the enumerating function for the total area under Dyck paths of lengths 0 to 50`):
+
+print(``):  print(`----------------------------`): print(``):
+
+print(`The second derivative with respect to q of D(x,q)`):
+print(`evaluated at q=1 is`):
+print(DyckDer[3]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(DyckDer[3],x=0,54),x,i)*x^i,i=0..50);
+
+print(``):  print(`----------------------------`): print(``):
+print(`The third derivative with respect to q of D(x,q)`):
+print(`evaluated at q=1 is`):
+print(DyckDer[4]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(DyckDer[4],x=0,54),x,i)*x^i,i=0..50);
+
+print(``):  print(`----------------------------`): print(``):
+print(`The fourth derivative with respect to q of D(x,q)`):
+print(`evaluated at q=1 is`):
+print(DyckDer[5]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(DyckDer[5],x=0,54),x,i)*x^i,i=0..50);
+
+print(``):  print(`----------------------------`): print(``):
+print(`The fifth derivative with respect to q of D(x,q)`):
+print(`evaluated at q=1 is`):
+print(DyckDer[6]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(DyckDer[6],x=0,54),x,i)*x^i,i=0..50);
+
+print(``):  print(`----------------------------`): print(``):
+print(`The sixth derivative with respect to q of D(x,q)`):
+print(`evaluated at q=1 is`):
+print(DyckDer[7]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(DyckDer[7],x=0,54),x,i)*x^i,i=0..50);
+
+print(``):  print(`----------------------------`): print(``):
+print(`The seventh derivative with respect to q of D(x,q)`):
+print(`evaluated at q=1 is`):
+print(DyckDer[8]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(DyckDer[8],x=0,54),x,i)*x^i,i=0..50);
+
+print(``):  print(`----------------------------`): print(``):
+print(`The eigth derivative with respect to q of D(x,q)`):
+print(`evaluated at q=1 is`):
+print(DyckDer[9]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(DyckDer[9],x=0,54),x,i)*x^i,i=0..50);
+
+
+print(``):  print(`----------------------------`): print(``):
+print(`The ninth derivative with respect to q of D(x,q)`):
+print(`evaluated at q=1 is`):
+print(DyckDer[10]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(DyckDer[10],x=0,54),x,i)*x^i,i=0..50);
+
+
+print(``):  print(`----------------------------`):   print(`----------------------------`): print(`----------------------------`): 
+print(``):
+print(`So...`):
+print(``):
+print(`1. the generating function for the number of Dyck paths of lengths n is`):
+DyckDer[1];
+print(`and the enumerating function for the number of Dyck paths of lengths 0 to 50 is`):
+L0:=add(coeff(taylor(DyckDer[1],x=0,54),x,i)*x^i,i=0..50):
+print(L0):
+L0:=add(coeff(taylor(DyckDer[1],x=0,504),x,i)*x^i,i=0..500):
+print(``):  print(`----------------------------`): print(``):
+print(`2. the generating function for the total area under Dyck paths of lengths n is`):
+DyckDer[2];
+print(`and the enumerating function for the total area under Dyck paths of lengths 0 to 50 is`):
+L1:=add(coeff(taylor(DyckDer[2],x=0,54),x,i)*x^i,i=0..50):
+print(L1):
+L1:=add(coeff(taylor(DyckDer[2],x=0,504),x,i)*x^i,i=0..500):
+print(``):  print(`----------------------------`): print(``):
+print(`3. the generating function for the sum of the squares of the areas under Dyck paths of lengths n is`):
+d:=DyckDer[3]+DyckDer[2]:
+print(simplify(DyckDer[3]+DyckDer[2])):
+print(`and the enumerating function for the sum of the squares of the areas under Dyck paths of lengths 0 to 50 is`):
+L2:=add(coeff(taylor(d,x=0,54),x,i)*x^i,i=0..50):
+print(L2):
+L2:=add(coeff(taylor(d,x=0,504),x,i)*x^i,i=0..500):
+
+print(``):  print(`----------------------------`): print(``):
+print(`4. the generating function for the sum of the cubes of the areas under Dyck paths of lengths n is`):
+d:=DyckDer[4]+3*DyckDer[3]+DyckDer[2]:
+print(simplify(d)):
+print(`and the enumerating function for the sum of the cubes of the areas under Dyck paths of lengths 0 to 50 is`):
+add(coeff(taylor(d,x=0,54),x,i)*x^i,i=0..50);
+
+
+print(``): print(`----------------------------`): print(`----------------------------`): 
+print(``):
+print(`The k-th entry of the following list is the average area under Dyck paths of semi-length k`):
+evalf(seq(coeff(L1,x,2*i)/coeff(L0,x,2*i),i=1..250));
+print(``):print(``):
+print(`The variances are:`):
+evalf(seq(coeff(L2,x,2*i)/coeff(L0,x,2*i)-(coeff(L1,x,2*i)/coeff(L0,x,2*i))^2,i=1..250));
