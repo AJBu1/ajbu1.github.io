@@ -1,0 +1,119 @@
+read `qEW.txt`:
+print(`Let M(x,q) be the bivariate weight enumerator for Motzkin paths of length n and area m.`):
+MotzDer:=DerK(1,x,x^2*q,q,x,11,f):
+print(``):  print(`----------------------------`): print(``):
+print(` M(x,1) is`):
+print(MotzDer[1]):
+print(`The Maclaurin polynomial of order 50 of M(x,1) is`):
+add(coeff(taylor(MotzDer[1],x=0,54),x,i)*x^i,i=0..50);
+print(`This is the enumerating function for Motzkin paths of lengths 0 to 50`):
+
+print(``):  print(`----------------------------`): print(``):
+
+print(`The first derivative with respect to q of M(x,q)`):
+print(`evaluated at q=1 is`):
+print(MotzDer[2]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(MotzDer[2],x=0,54),x,i)*x^i,i=0..50);
+print(`This is the enumerating function for the total area under Motzkin paths of lengths 0 to 50`):
+
+print(``):  print(`----------------------------`): print(``):
+
+print(`The second derivative with respect to q of M(x,q)`):
+print(`evaluated at q=1 is`):
+print(MotzDer[3]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(MotzDer[3],x=0,54),x,i)*x^i,i=0..50);
+
+print(``):  print(`----------------------------`): print(``):
+print(`The third derivative with respect to q of M(x,q)`):
+print(`evaluated at q=1 is`):
+print(MotzDer[4]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(MotzDer[4],x=0,54),x,i)*x^i,i=0..50);
+
+print(``):  print(`----------------------------`): print(``):
+print(`The fourth derivative with respect to q of M(x,q)`):
+print(`evaluated at q=1 is`):
+print(MotzDer[5]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(MotzDer[5],x=0,54),x,i)*x^i,i=0..50);
+
+print(``):  print(`----------------------------`): print(``):
+print(`The fifth derivative with respect to q of M(x,q)`):
+print(`evaluated at q=1 is`):
+print(MotzDer[6]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(MotzDer[6],x=0,54),x,i)*x^i,i=0..50);
+
+print(``):  print(`----------------------------`): print(``):
+print(`The sixth derivative with respect to q of M(x,q)`):
+print(`evaluated at q=1 is`):
+print(MotzDer[7]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(MotzDer[7],x=0,54),x,i)*x^i,i=0..50);
+
+print(``):  print(`----------------------------`): print(``):
+print(`The seventh derivative with respect to q of M(x,q)`):
+print(`evaluated at q=1 is`):
+print(MotzDer[8]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(MotzDer[8],x=0,54),x,i)*x^i,i=0..50);
+
+print(``):  print(`----------------------------`): print(``):
+print(`The eigth derivative with respect to q of M(x,q)`):
+print(`evaluated at q=1 is`):
+print(MotzDer[9]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(MotzDer[9],x=0,54),x,i)*x^i,i=0..50);
+
+
+print(``):  print(`----------------------------`): print(``):
+print(`The ninth derivative with respect to q of M(x,q)`):
+print(`evaluated at q=1 is`):
+print(MotzDer[10]):
+print(`The Maclaurin polynomial of order 50 is`):
+add(coeff(taylor(MotzDer[10],x=0,54),x,i)*x^i,i=0..50);
+
+
+print(``):  print(`----------------------------`):   print(`----------------------------`): print(`----------------------------`): 
+print(``):
+print(`So...`):
+print(``):
+print(`1. the generating function for the number of Motzkin paths of lengths n is`):
+MotzDer[1];
+print(`and the enumerating function for the number Motzkin paths of lengths 0 to 50 is`):
+L0:=add(coeff(taylor(MotzDer[1],x=0,54),x,i)*x^i,i=0..50):
+print(L0):
+L0:=add(coeff(taylor(MotzDer[1],x=0,504),x,i)*x^i,i=0..500):
+print(``):  print(`----------------------------`): print(``):
+print(`2. the generating function for the total area under Motzkin paths of lengths n is`):
+MotzDer[2];
+print(`and the enumerating function for the total area under Motzkin paths of lengths 0 to 50 is`):
+L1:=add(coeff(taylor(MotzDer[2],x=0,54),x,i)*x^i,i=0..50):
+print(L1):
+L1:=add(coeff(taylor(MotzDer[2],x=0,504),x,i)*x^i,i=0..500):
+print(``):  print(`----------------------------`): print(``):
+print(`3. the generating function for the sum of the squares of the areas under Motzkin paths of lengths n is`):
+d:=MotzDer[3]+MotzDer[2]:
+print(simplify(MotzDer[3]+MotzDer[2])):
+print(`and the enumerating function for the sum of the squares of the areas under Motzkin paths of lengths 0 to 50 is`):
+L2:=add(coeff(taylor(d,x=0,54),x,i)*x^i,i=0..50):
+print(L2):
+L2:=add(coeff(taylor(d,x=0,504),x,i)*x^i,i=0..500):
+
+print(``):  print(`----------------------------`): print(``):
+print(`4. the generating function for the sum of the cubes of the areas under Motzkin paths of lengths n is`):
+d:=MotzDer[4]+3*MotzDer[3]+MotzDer[2]:
+print(simplify(d)):
+print(`and the enumerating function for the sum of the cubes of the areas under Motzkin of lengths 0 to 50 is`):
+add(coeff(taylor(d,x=0,54),x,i)*x^i,i=0..50);
+
+
+print(``): print(`----------------------------`): print(`----------------------------`): 
+print(``):
+print(`The k-th entry of the following list is the average area under Motzkin paths of length k`):
+evalf(seq(coeff(L1,x,i)/coeff(L0,x,i),i=1..250));
+print(``):print(``):
+print(`The variances are:`):
+evalf(seq(coeff(L2,x,i)/coeff(L0,x,i)-(coeff(L1,x,i)/coeff(L0,x,i))^2,i=1..250));
