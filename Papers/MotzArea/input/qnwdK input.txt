@@ -1,0 +1,51 @@
+read `qEW.txt`:
+
+print(`The list of length 21 whose i-th entry is the enumerating function`):
+print(`for the area under Dyck paths of length i-1 is`);
+print(``):
+L:=qnwdK({[1,1],[1,-1]}, 20,q):
+print(L):
+print(``):
+print(`Note: this gives us the following enumerating function for areas under Dyck paths of length 0 through 20`):
+add(L[i+1]*x^i,i=0..20);
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`The list of length 21 whose i-th entry is the enumerating function`):
+print(`for the area under Motzkin paths of length i-1 is`):
+print(``):
+L:=qnwdK({[1,1],[1,-1],[1,0]}, 20,q):
+print(L):
+print(``):
+print(`Note: this gives us the following enumerating function for areas under Motzkin paths of length 0 through 20`):
+add(L[i+1]*x^i,i=0..20);
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+
+print(`The list of length 21 whose i-th entry is the enumerating function`):
+print(`for the area under paths of length i-1 with steps {[1,1],[1,-1],[1,2]} is`):
+print(``):
+L:=qnwdK({[1,1],[1,-1],[1,2]}, 20,q):
+print(L):
+print(`Note: this gives us the following enumerating function for areas under such paths of length 0 through 20`):
+add(L[i+1]*x^i,i=0..20);
+
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`The list of length 21 whose i-th entry is the enumerating function`):
+print(`for the area under paths of length i-1 with steps {[1,1],[1,-1],[1,2],[1,0]} is`):
+print(``):
+L:=qnwdK({[1,1],[1,-1],[1,2],[1,0]}, 20,q):
+print(L):
+print(`Note: this gives us the following enumerating function for areas under such paths of length 0 through 20`):
+add(L[i+1]*x^i,i=0..20);
+
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`The list of length 21 whose i-th entry is the enumerating function`):
+print(`for the area under paths of length i-1 with steps {[1,1],[1,-1],[1,3],[1,-2],[1,0]} is`):
+print(``):
+L:=qnwdK({[1,1],[1,-1],[1,3],[1,-2],[1,0]}, 20,q):
+print(L):
+print(`Note: this gives us the following enumerating function for areas under such paths of length 0 through 20`):
+add(L[i+1]*x^i,i=0..20);
