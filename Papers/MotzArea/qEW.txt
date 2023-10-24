@@ -1,0 +1,976 @@
+
+
+Help:=proc():
+	print(`Thes main procedures in this package are:`):
+        print(`Empir(L,x,P):`):
+	print(`qnwdK(S,K,q)`, `FRarea(S,K,q,n,N,C)`):
+	print(`SeqF1(P,Q,R,q,x,K)`, `DerK(P,Q,R,q,x,k,f)`):
+	print(`qnwdKTrunc(S,K,z,deg), OpeSeq(S,q,k,K2,n,N)`):
+	print(`For details on each procedure try:`):
+	print(`WhatIs(ProcedureName)`):
+	print(`For the supporting procedures try`):
+	print(`Help1()`):
+end:
+
+Help1:=proc():
+	print(`Tr(w)`, `Ar(w)`, `qnw(S,n,q)`):
+	print(`qnwK(S,K,q)`, `qnmwd(S,n,m,q)`, `qnwd(S,n,q)`, `qnwdKi(S,K,q,i)`, `checkqnwd(S,K,q)`, `FRiarea(S,K,q,i,n,N,C)`):
+	print(`Stat(F,t,K)`):
+	print(`D1(f,q,x,K)`, `SeqD(q,x,K)`, `CheckD(q,x,K)`, `SeqMotz(q,x,K)`, `Motz(f,q,x,K)`, `CheckMotz(q,x,K)`):
+	print(`F1(f,P,Q,R,q,x,K)`):
+	print(`DyckDeriv(q,x,k)`, `CheckDyckDeriv(q,x,k,K)`):
+	print(`MotzDeriv(q,x,k)`, `CheckMotzDeriv(q,x,k,K)`):
+	print(`qnmwdTrunc(S,n,m,z,deg)`, `qnwdTrunc(S,n,z,deg)`):
+end:
+
+
+
+WhatIs:=proc(arg):
+	if arg=DerK then 
+		print(`DerK(P,Q,R,q,x,k,f): outputs up to the k-th derivative with resect to q of the function f(x,q), which satisfies the equation`):
+		print(`f(x,q)=P(x,q)+Q(x,q)*f(x,q)+R(x,q)*f(x,q)*f(q*x,q)`):
+		print(`evaluated at q=1`):
+	elif arg=SeqF1 then
+		print(`SeqF1(P,Q,R,q,x,K): For the set of walks whose bivariate generating function f(x,q), where q^ix^n denotes a walk of length n with area i,`):
+		print(`satisfies the equation`):
+		print(`f(x,q)=P(x,q)+Q(x,q)*f(x,q)+R(x,q)*f(x,q)*f(q*x,q),`):
+		print(`outputs the function enumerating the areas of walks of length 1 through K`):
+	elif arg=qnwK then
+		print(`qnwK(S,K,q): inputs a set of steps S, a positive integer K, and a variable q`):
+		print(`outputs a list of length K, whose i-th entry is the enumerating function for the area of walks of length i with steps in S`):
+		print(`Try: qnwK([[1,1],[1,-1],[1,0]],5,q)`):
+	elif arg=qnwdK then
+		print(`qnwdK(S,K,q): inputs a set of steps S, a positive integer K, and a variable q`):
+		print(`outputs a list of length K+1, whose i-th entry is the enumerating function for the area of walks of length i-1 with steps in S`):
+		print(`Try: qnwdK([[1,1],[1,-1],[1,0]],5,q)`):
+	elif arg=qnwdKTrunc then
+		print(`qnwdKTrunc(S,K,z,deg): inputs a set of steps S, a positive integer K, a variable z, and a positive integer deg`):
+		print(`outputs a list of length K, whose i-th entry is the enumerating function for the area of walks of length i with steps in S truncated to degree deg`):
+		print(`Try: qnwdKTrunc([[1,1],[1,-1],[1,0]],5,z,5)`):
+
+	elif arg=SeqOld then
+		print(`SeqOld(S,K1,q,k,K2): inputs a set of steps S, positive integers K1, k, K2, and a variable q`):
+		print(`Finds the recurrence for the enumerating function for the area of walks of length i with steps in S evaluated at q=1`):
+		print(`and its derivative at q=1`):
+		print(`Uses these recurrences to generate sequences L0 and L1, respectively`):
+		print(`Outputs the last 40 terms of the sequence L0[i]/L1[i]/i`):
+
+	elif arg=OpeSeq then
+		print(`Seq(S,q,k,K2,n,N): inputs a set of steps S, positive integer k, and a variable q, large pos. intgeger K2, and symbols n and N`):
+		print(`returns the recurrence up to complexity (ORDER+DEGREE), k, for the enumerating function for the area of walks of length i with steps in S evaluated at q=1`):
+		print(`and its derivative at q=1`):
+		print(`Uses these recurrences to generate sequences L0 (the number of walks with to [n,0]) and L1 (sum of the areas of all  such walks) `):
+		print(`Outputs the the last 40 terms of the sequence L1[i]/L0[i]. In other words, the average area. Try:`):
+                print(`OpeSeq({[1,0],[1,-1],[1,1]},q,10,1000,n,N);`):
+
+
+	fi:
+end:
+
+
+
+Tr:=proc(w) local i,P:
+P:=[[0,0]]:
+for i from 1 to nops(w) do
+P:=[op(P),P[-1]+w[i]]:
+od:
+P: end:
+
+
+Ar:=proc(w) local i,P:
+	P:=[[0,0]]:
+	for i from 1 to nops(w) do
+	P:=[op(P),P[-1]+w[i]]:
+od:
+add(P[i][2],i=1..nops(P)) end:
+
+
+qnw:=proc(S,n,q) local W,w:
+	W:=walksnpos(S,n):
+	add(q^Ar(w),w in W):
+end:
+
+qnwK:=proc(S,K,q) local n: 
+	[seq(qnw(S,n,q),n=1..K)]:
+end:
+
+qnmwd:=proc(S,n,m,q) local W,S2,s,W1: 
+	option remember:
+	W := 0:
+	if n=0 then 
+		RETURN(0):
+	elif n=1 then 
+		if member([1,m],S)=true and 0<=m then 
+			RETURN(x*q^(m/2)) else RETURN(0): 
+		fi:
+	else 
+		for s in S do 
+			if 0<=m - s[2] and 0<=n-s[1] then
+				W1 := qnmwd(S,n - s[1],m - s[2],q):  
+				if W1<>0 then 
+					W := expand(W+x*q^(m-s[2]/2)*W1):
+				fi:
+			fi:
+		od:
+	fi:	
+W:
+end:
+
+qnwd:=proc(S,n,q) option remember:
+	qnmwd(S,n,0,q):
+end:
+
+qnwdK:=proc(S,K,q) local n: 
+	[1,seq(subs(x=1,coeff(add(qnwd(S,n,q),n=1..K),x,j)),j=1..K)]:
+end:
+
+qnwdKi:=proc(S,K,q,i) local n: 
+	[seq(qnwd(S,n*i,q),n=1..K)]:
+end:
+
+checkqnwd:=proc(S,K,q):
+	evalb(qnwK(S,K,q)=qnwdK(S,K,q)):
+end:
+
+qnmwdTrunc:=proc(S,n,m,z,deg) local W,S2,s,W1: 
+	option remember:
+	W := 0:
+	S2 := {seq(s[2],s in S)}:
+	if n=0 then 
+		RETURN(1):
+	elif n=1 then 
+		if member(m,S2)=true and 0<=m then 
+			RETURN( simplify((1+z)^m,{z^(deg+1)})):
+			else 
+				RETURN(0): 
+		fi:
+	else 
+		for s in S2 do 
+			if 0<=m - s then :
+				W1 := simplify(qnmwd(S,n - 1,m - s,z+1),{z^(deg+1)}): 
+				if W1<>0 then 
+					W := simplify(expand(W+q^m*W1),{z^(deg+1)}): 
+				fi:
+			fi:
+		od:
+	fi:	
+W:
+end:
+
+
+qnwdTrunc:=proc(S,n,z,deg) option remember:
+	expand(qnmwdTrunc(S,n,0,z,deg)):
+end:
+
+
+qnwdKTrunc:=proc(S,K,z,deg) local n: 
+	[seq(qnwdTrunc(S,n,z,deg),n=1..K)]:
+end:
+
+
+
+
+
+
+
+
+FRarea:=proc(S,K,q,n,N,C) local L:
+	L:=qnwdK(S,K,q):
+	qFR(L,q,n,N,C):
+end:
+
+FRiarea:=proc(S,K,q,i,n,N,C) local L:
+	L:=qnwdKi(S,K,q,i): 
+	qFR(L,q,n,N,C):
+end:
+
+D1:=proc(f,q,x,K) local g,i: 
+	g:=expand(1+x^2*f*q*subs(x=q*x,f)): 
+	add(coeff(g,x,i)*(x)^i,i=0..K): 
+end:
+
+
+SeqD:=proc(q,x,K) local f1,f2,f3,i: 
+	f1:=1:
+	f2:=D1(f1,q,x,K):
+	while f1<>f2 do
+		f3:=D1(f2,q,x,K):
+		f1:=f2:
+		f2:=f3:
+	od:
+	f2:
+end:
+
+CheckD:=proc(q,x,K) local L,i:
+	L:=qnwdK({[1,1],[1,-1]},K,q):
+	evalb(SeqD(q,x,K)=1+add(L[i]*x^i,i=1..nops(L))):
+end:
+
+
+Motz:=proc(f,q,x,K) local g,i: 
+	g:=expand(1+x^2*f*q*subs(x=q*x,f)+x*f): 
+	add(coeff(g,x,i)*x^i,i=0..K): 
+end:
+
+SeqMotz:=proc(q,x,K) local f1,f2,f3,i: 
+	f1:=1:
+	f2:=Motz(f1,q,x,K):
+	while f1<>f2 do
+		f3:=Motz(f2,q,x,K):
+		f1:=f2:
+		f2:=f3:
+	od:
+	f2:
+end:
+
+CheckMotz:=proc(q,x,K) local L,i:
+	L:=qnwdK({[1,1],[1,-1],[1,0]},K,q):
+	evalb(SeqMotz(q,x,K)=1+add(L[i]*x^i,i=1..nops(L))):
+end:
+
+
+
+
+F1:=proc(f,P,Q,R,q,x,K) local g, i:
+	g:=expand(P+Q*f+R*f*subs(x=q*x,f)): 
+	add(coeff(g,x,i)*x^i,i=0..K):
+end:
+
+SeqF1:=proc(P,Q,R,q,x,K) local f1,f2,f3:
+	f1:=1: 
+	f2:=F1(f1,P,Q,R,q,x,K):  
+	while f1<>f2 do
+		f3:=F1(f2,P,Q,R,q,x,K): 
+		f1:=f2:
+		f2:=f3:
+	od:
+	f2:
+end:
+
+
+
+DyckDeriv:=proc(q,x,k) local i,f,C,L,F,c,G,j,m:
+	f[0]:=solve(C=1+x^2*C^2,C)[2]:
+	F:=taylor(sum((q-1)^i*C[i](x)/i!,i=0..k)-(1+q*x^2*sum((q-1)^i*C[i](x)/i!,i=0..k)*sum((q-1)^i*C[i](q*x)/i!,i=0..k)),q=1,k+1): 
+	L:=[f[0]]:
+
+	for i from 1 to k do
+		c:=coeff(F,q-1,i): 
+		G:=solve(c,C[i](x)):
+		G:=simplify(subs({seq(seq((D@@j)(C[m-1])(x)=diff(L[m],x$j),j=1..i),m=1..i), seq(C[m-1](x)=L[m], m=1..i)},G)):
+		L:=[op(L),G]:
+	od:
+	L:		
+	end:
+
+
+
+CheckDyckDeriv:=proc(q,x,k,K) local i,j,S,L:
+	L:=DyckDeriv(q,x,k):
+	S:=SeqD(q,x,K):
+	evalb([seq(coeff(taylor(L[1],x=0,K+10),x,j),j=0..K)]=[seq(coeff(subs(q=1,S),x,j),j=0..K)]), seq(evalb([seq( coeff(taylor(L[i+1],x=0,K+10),x,j),j=0..K)]=[seq(coeff(subs(q=1,diff(S,q$i)),x,j),j=0..K)]),i=1..k):
+end:
+
+
+
+MotzDeriv:=proc(q,x,k) local i,f,M,L,F,c,G,j,m:
+	f[0]:=solve(M=1+x^2*M^2+x*M,M)[2]:
+	F:=taylor(sum((q-1)^i*M[i](x)/i!,i=0..k)-(1+q*x^2*sum((q-1)^i*M[i](x)/i!,i=0..k)*sum((q-1)^i*M[i](q*x)/i!,i=0..k)+x*sum((q-1)^i*M[i](x)/i!,i=0..k)),q=1,k+1): 
+	L:=[f[0]]:
+
+	for i from 1 to k do
+		c:=coeff(F,q-1,i): 
+		G:=solve(c,M[i](x)):
+		G:=simplify(subs({seq(seq((D@@j)(M[m-1])(x)=diff(L[m],x$j),j=1..i),m=1..i), seq(M[m-1](x)=L[m], m=1..i)},G)):
+		L:=[op(L),G]:
+	od:
+	L:		
+	end:
+
+CheckMotzDeriv:=proc(q,x,k,K) local i,j,S,L:
+	L:=MotzDeriv(q,x,k):
+	S:=SeqMotz(q,x,K):
+	evalb([seq(coeff(taylor(L[1],x=0,K+10),x,j),j=0..K)]=[seq(coeff(subs(q=1,S),x,j),j=0..K)]), seq(evalb([seq( coeff(taylor(L[i+1],x=0,K+10),x,j),j=0..K)]=[seq(coeff(subs(q=1,diff(S,q$i)),x,j),j=0..K)]),i=1..k):
+end:
+
+
+
+
+DerK:=proc(P,Q,R,q,x,k,f) local eq,sol,test,L,i,m,j,F,c,G:
+	eq:=f=subs(q=1,P)+subs(q=1,Q)*f+subs(q=1,R)*f^2:
+	sol:=solve(eq,f): 
+	test:=[type(series(sol[1],x),taylor),type(series(sol[2],x),taylor)]: 
+	if test[1]=true then sol:=sol[1]:
+		elif test[2]=true then sol:=sol[2]:
+		else RETURN(FAIL):
+	end:
+	L:=[sol]:
+	
+	F := taylor(sum((q - 1)^i*f[i](x)/i!, i = 0 .. k) - P - Q*sum((q - 1)^i*f[i](x)/i!, i = 0 .. k)-R*sum((q - 1)^i*f[i](x)/i!, i = 0 .. k)*sum((q - 1)^i*f[i](x*q)/i!, i = 0 .. k), q = 1, k + 1):
+	
+	for i to k do
+	c := coeff(F, q - 1, i): 
+	G := solve(c, f[i](x)): 
+	G := simplify(subs({seq(seq((D@@j)(f[m-1])(x)=diff(L[m],x$j),j=1..i),m=1..i), seq(f[m-1](x)=L[m], m=1..i)},G)):
+	L := [op(L), G]:
+		od:
+end:
+
+
+
+#######	From EW.txt ########
+
+Help1:=proc():
+	print(`The Main procedures are:`):
+	print(`walksn(S,n)`, `numwalksn(S,n)`,`numwalksK(S,K)`, `findrecwalks(S,K,n,N,maxC)`): 
+	print(`walksnpos(S,n)`, `numwalksnpos(S,n)`, `numwalksKpos(S,K)`, 	`findrecposwalks(S,K,n,N,maxC)`):
+
+	#print(`walksnm(S,n,m)`, `walksn(S,n)`, `walksK(S,K)`):
+	#print(`walksnmpos(S,n,m)`, `walksnpos(S,n)`, `walksKpos(S,K)`):
+	#print(`numwalksnm(S,n,m)`, `numwalksn(S,n)`, `numwalksK(S,K)`):
+	#print(`numwalksnmpos(S,n,m)`, `numwalksnpos(S,n)`, `numwalksKpos(S,K)`):
+end:
+
+
+#walksnm(S,n,m): the set of walks of length n with steps in S={[1,b1],[1,b2],...} from [0,0] to [n,m]
+walksnm:=proc(S,n,m) local W, S2,s,W1,w: option remember:
+	W:={}:
+	S2:={seq(s[2],s in S)}:
+
+	if n=0 then
+		RETURN({[]}):
+
+	elif n=1 then 	
+			if member(m,S2)=true then
+				W:={[m]}:
+			else
+				RETURN({}):
+			fi:
+	else
+	
+	for s in S2 do
+		W1:=op({walksnm(S,n-1,m-s)} minus {{}}): 
+		if W1<>{} then
+			W:=W union {seq([op(w),s],w in W1)}:
+		fi:
+	od:
+	fi:
+	W:
+end:
+
+
+#walksn(S,n): the set of walks of length n with steps in S={[1,b1],[1,b2],...} from [0,0] to [n,0]
+walksn:=proc(S,n) local W,w,i:
+	W:=walksnm(S,n,0):
+	{seq([seq([1,w[i]],i=1..nops(w))],w in W)}:
+end:
+
+#walksK(S,K): the sequence enumerating walks of length n with steps in S={[1,b1],[1,b2],...} from [0,0] to [n,0] from n=1 to n=k
+walksK:=proc(S,K) local W,n:
+	seq(nops(walksn(S,n)),n=1..K):
+end:
+
+
+#walksnmpos(S,n,m): the set of walks of length n with steps in S={[1,b1],[1,b2],...} from [0,0] to [n,m]that have non-negative height
+walksnmpos:=proc(S,n,m) local W, S2,s,W1,w: option remember:
+	W:={}:
+	S2:={seq(s[2],s in S)}:
+
+	if n=0 then
+		RETURN({[]}):
+
+	elif n=1 then 	
+			if (member(m,S2)=true and m>=0) then
+				W:={[m]}: 
+			else
+				RETURN({}):
+			fi:
+	else
+	
+	for s in S2 do 
+		if m-s>=0 then
+		W1:=op({walksnmpos(S,n-1,m-s)} minus {{}}): 
+		if W1<>{} then
+			W:=W union {seq([op(w),s],w in W1)}:
+		fi: fi:
+	od:
+	fi:
+	W:
+end:
+
+
+
+#walksnpos(S,n): the set of walks of length n with steps in S={[1,b1],[1,b2],...} from [0,0] to [n,0]that never have negative height
+walksnpos:=proc(S,n) local W,i,w:
+	W:=walksnmpos(S,n,0):
+	{seq([seq([1,w[i]],i=1..nops(w))],w in W)}:
+end:
+
+#walksKpos(S,K): the sequence enumerating walks of length n with steps in S={[1,b1],[1,b2],...} from [0,0] to [n,0] from n=1 to n=k that never have negative height
+walksKpos:=proc(S,K) local W,n:
+	seq(nops(walksnpos(S,n)),n=1..K):
+end:
+
+
+
+
+
+numwalksnm:=proc(S,n,m) local W, S2,s,W1: option remember:
+	W:=0:
+	S2:={seq(s[2],s in S)}:
+
+	if n=0 then
+		RETURN(1):
+
+	elif n=1 then 	
+			if member(m,S2)=true then
+				RETURN(1):
+			else
+				RETURN(0):
+			fi:
+	else
+	
+	for s in S2 do
+		W1:=numwalksnm(S,n-1,m-s): 
+		if W1<>{} then
+			W:=W +W1:
+		fi:
+	od:
+	fi:
+	W:
+	
+end:
+
+
+#numwalksn(S,n): the number of walks of length n with steps in S={[1,b1],[1,b2],...} from [0,0] to [n,0]
+numwalksn:=proc(S,n) local W:
+	numwalksnm(S,n,0):
+end:
+
+
+#numwalksK(S,K): the sequence enumerating walks of length n with steps in S={[1,b1],[1,b2],...} from [0,0] to [n,0] from n=1 to n=k
+numwalksK:=proc(S,K) local W,n:
+	[seq(numwalksnm(S,n,0),n=1..K)]:
+end:
+
+
+numwalksnmpos:=proc(S,n,m) local W, S2,s,W1: option remember:
+	W:=0:
+	S2:={seq(s[2],s in S)}:
+
+	if n=0 then
+		RETURN(1):
+
+	elif n=1 then 	
+			if member(m,S2)=true and m>=0 then
+				RETURN(1):
+			else
+				RETURN(0):
+			fi:
+	else
+	
+	for s in S2 do
+		if m-s>=0 then
+			W1:=numwalksnmpos(S,n-1,m-s): 
+			if W1<>{} then
+				W:=W +W1:
+			fi:
+		fi:
+	od:
+	fi:
+	W:
+	
+end:
+
+
+#numwalksnpos(S,n): the number of walks of length n with steps in S={[1,b1],[1,b2],...} from [0,0] to [n,0]
+numwalksnpos:=proc(S,n) local W,w,i:
+	numwalksnmpos(S,n,0):
+end:
+
+
+#numwalksKpos(S,K): the sequence enumerating walks of length n with steps in S={[1,b1],[1,b2],...} from [0,0] to [n,0] from n=1 to n=k
+numwalksKpos:=proc(S,K) local W,n:
+	[seq(numwalksnpos(S,n),n=1..K)]:
+end:
+
+findrecposwalks:=proc(S,K,n,N,maxC):
+	Findrec(numwalksKpos(S,K),n,N,maxC):
+end:
+	
+
+findrecwalks:=proc(S,K,n,N,maxC):
+	Findrec(numwalksK(S,K),n,N,maxC):
+end:
+
+
+SeqOld:=proc(S,K1,q,k,K2) local L,L1,ope,L0,ope0,ope1,L0a,L1a,N,i,n:
+	L:= qnwdK(S,K1,q): 
+	L0:=subs(q=1, L): 
+	L1:=[seq(subs(q=1, diff(L[i],q)),i=1..nops(L))]: 
+	ope0:=Findrec(L0,n,N,15):
+	if ope0=FAIL then
+		print(`can't find recurrence`):
+		RETURN(FAIL):
+	fi:
+	L0a:=SeqFromRec(ope0,n,N,[op(1..degree(ope0,N),L0)],K2):
+	ope1:=Findrec(L1,n,N,15): 
+	if ope1=FAIL then
+		print(`can't find recurrence for derivative`):
+		RETURN(FAIL):
+	fi: 
+	
+	L1a:=SeqFromRec(ope1,n,N,[op(1..degree(ope1,N),L1)],K2):
+	seq(evalf(L1a[i]/L0a[i]/i),i=nops(L1a)-40..nops(L1a)):
+end:
+
+
+OpeSeq:=proc(S,q,k,K2,n,N) local K1,L,L1,ope,L0,ope0,ope1,L0a,L1a,i,D1:
+
+K1:=max(seq((2+D1)*(1+k-D1),D1=0..k))+8:
+
+	L:= qnwdK(S,K1,q): 
+	L0:=subs(q=1, L): 
+	L1:=[seq(subs(q=1, diff(L[i],q)),i=1..nops(L))]: 
+	ope0:=Findrec(L0,n,N,k):
+	if ope0=FAIL then
+		print(`can't find recurrence`):
+		RETURN(FAIL):
+	fi:
+	L0a:=SeqFromRec(ope0,n,N,[op(1..degree(ope0,N),L0)],K2):
+	ope1:=Findrec(L1,n,N,k): 
+	if ope1=FAIL then
+		print(`can't find recurrence for derivative`):
+		RETURN(FAIL):
+	fi: 
+	
+	L1a:=SeqFromRec(ope1,n,N,[op(1..degree(ope1,N),L1)],K2):
+	[ope0,ope1,seq(evalf(L1a[i]/L0a[i]),i=nops(L1a)-40..nops(L1a))]:
+end:
+
+####################	From Findrec.txt	####################
+
+#findrec(f,DEGREE,ORDER,n,N): guesses a recurrence operator annihilating
+#the sequence f of degree DEGREE and order ORDER
+#For example, try: findrec([seq(i,i=1..10)],0,2,n,N);
+findrec:=proc(f,DEGREE,ORDER,n,N)
+local ope,var,eq,i,j,n0,kv,var1,eq1,mu,a:
+option remember:
+
+
+if not findrecEx(f,DEGREE,ORDER,ithprime(20)) then
+ RETURN(FAIL):
+fi:
+
+if not findrecEx(f,DEGREE,ORDER,ithprime(40)) then
+ RETURN(FAIL):
+fi:
+
+if not findrecEx(f,DEGREE,ORDER,ithprime(80)) then
+ RETURN(FAIL):
+fi:
+
+
+if (1+DEGREE)*(1+ORDER)+5+ORDER>nops(f) then
+ERROR(`Insufficient data for a recurrence of order`,ORDER, `degree`,DEGREE):
+fi:
+ope:=0:
+var:={}:
+ 
+for i from 0 to ORDER do
+ for j from 0 to DEGREE do
+  ope:=ope+a[i,j]*n^j*N^i:
+  var:=var union {a[i,j]}:
+ od:
+od:
+    
+eq:={}:
+ 
+for n0 from 1 to (1+DEGREE)*(1+ORDER)+4 do
+  eq1:=0:
+ 
+  for i from 0 to ORDER do
+     eq1:=eq1+subs(n=n0,coeff(ope,N,i))*op(n0+i,f):
+  od:
+ 
+   eq:= eq union {eq1}:
+od:
+ 
+var1:=solve(eq,var):
+ 
+kv:={}:
+ 
+for i from 1 to nops(var1) do
+ mu:=op(i,var1):
+ 
+if op(1,mu)=op(2,mu) then
+   kv:= kv union {op(1,mu)}:
+ fi:
+ 
+od:
+
+ope:=subs(var1,ope):
+
+if ope=0 then
+  RETURN(FAIL):
+fi:
+
+ope:={seq(coeff(expand(ope),kv[i],1),i=1..nops(kv))} minus {0}:
+
+if nops(ope)>1 then
+RETURN(Yafe(ope[1],N)[2]):
+elif nops(ope)=1 then
+RETURN(Yafe(ope[1],N)[2]):
+else
+ RETURN(FAIL):
+fi:
+
+end:
+ 
+
+
+Yafe:=proc(ope,N) local i,ope1,coe1,L: 
+if ope=0 then
+ RETURN(1,0):
+fi:
+ope1:=expand(ope):
+L:=degree(ope1,N):
+coe1:=coeff(ope1,N,L):
+ope1:=normal(ope1/coe1):
+ope1:=normal(ope1):
+ope1:=
+convert(
+[seq(factor(coeff(ope1,N,i))*N^i,i=ldegree(ope1,N)..degree(ope1,N))],`+`):
+factor(coe1),ope1:
+end:
+
+
+#Findrec(f,n,N,MaxC): Given a list f tries to find a linear recurrence equation with
+#poly coffs.
+#of maximum DEGREE+ORDER<=MaxC
+#e.g. try Findrec([1,1,2,3,5,8,13,21,34,55,89],n,N,2);
+Findrec:=proc(f,n,N,MaxC)
+local DEGREE, ORDER,ope,L:
+
+for L from 0 to MaxC do
+for ORDER from 1 to L do
+ DEGREE:=L-ORDER:
+if (2+DEGREE)*(1+ORDER)+4>=nops(f) then
+ print(`Insufficient data for degree`, DEGREE, `and order `,ORDER):
+ RETURN(FAIL):
+fi:
+ ope:=findrec([op(1..(2+DEGREE)*(1+ORDER)+4,f)],DEGREE,ORDER,n,N):
+     if ope<>FAIL then
+       RETURN(ope):
+      fi:
+ od:
+od:
+FAIL:
+
+end:
+
+
+
+
+
+ 
+#SeqFromRec(ope,n,N,Ini,K): Given the first L-1
+#terms of the sequence Ini=[f(1), ..., f(L-1)]
+#satisfied by the recurrence ope(n,N)f(n)=0
+#extends it to the first K values
+SeqFromRec:=proc(ope,n,N,Ini,K)
+local ope1,gu,L,n1,j1:
+ope1:=Yafe(ope,N)[2]:
+L:=degree(ope1,N):
+if nops(Ini)<>L then
+ ERROR(`Ini should be of length`, L):
+fi:
+
+ope1:=expand(subs(n=n-L,ope1)/N^L):
+
+gu:=Ini:
+
+for n1 from nops(Ini)+1 to K do
+gu:=[op(gu), -add(gu[nops(gu)+1-j1]*subs(n=n1,coeff(ope1,N,-j1)),
+j1=1..L)]:
+od:
+
+gu:
+
+end:
+ 
+#end Findrec
+
+
+with(linalg):
+
+#findrecEx(f,DEGREE,ORDER,m1): Explores whether thre
+#is a good chance that there is a recurrence of degree DEGREE
+#and order ORDER, using the prime m1
+#For example, try: findrecEx([seq(i,i=1..10)],0,2,n,N,1003);
+findrecEx:=proc(f,DEGREE,ORDER,m1)
+local ope,var,eq,i,j,n0,eq1,a,A1,
+D1,E1,Eq,Var,f1,n,N:
+option remember:
+f1:=f mod m1:
+if (1+DEGREE)*(1+ORDER)+5+ORDER>nops(f) then
+ERROR(`Insufficient data for a recurrence of order`,ORDER, `degree`,DEGREE):
+fi:
+ope:=0:
+var:={}:
+ 
+for i from 0 to ORDER do
+ for j from 0 to DEGREE do
+  ope:=ope+a[i,j]*n^j*N^i:
+  var:=var union {a[i,j]}:
+ od:
+od:
+    
+eq:={}:
+ 
+for n0 from 1 to (1+DEGREE)*(1+ORDER)+4 do
+  eq1:=0:
+ 
+  for i from 0 to ORDER do
+     eq1:=eq1+subs(n=n0,coeff(ope,N,i))*op(n0+i,f1) mod m1:
+  od:
+ 
+   eq:= eq union {eq1}:
+od:
+
+
+Eq:= convert(eq,list):
+Var:= convert(var,list):
+
+
+D1:=nops(Var):
+E1:=nops(Eq):
+if E1<D1 then
+  RETURN(true):
+fi:
+
+A1:=matrix(D1,D1):
+
+for i from 1 to D1-1 do
+for j from 1 to D1 do
+  A1[i,j]:=coeff(Eq[i],Var[j]):
+od:
+od:
+
+for j from 1 to nops(Var) do
+  A1[D1,j]:=coeff(Eq[D1],Var[j]):
+od:
+
+if det(A1) mod m1 <>0  then
+ RETURN(false):
+fi:
+
+if E1-D1>=1 then
+ for j from 1 to nops(Var) do
+  A1[D1,j]:=coeff(Eq[D1+1],Var[j]):
+ od:
+
+if det(A1) mod m1 <>0  then
+ RETURN(false):
+fi:
+fi:
+
+if E1-D1>=2 then
+ for j from 1 to nops(Var) do
+  A1[D1,j]:=coeff(Eq[D1+2],Var[j]):
+ od:
+
+if det(A1) mod m1 <>0  then
+ RETURN(false):
+fi:
+fi:
+
+true:
+
+end:
+
+
+
+
+#######	From qFindRec.txt by Doron Zeilberger ########
+#qFR1(L,deg1,ord1,q,n,N): inputs a list L of polynomials (or rational functions) in q, and non-negative integers
+#deg1 and ord1 tries to find an operator ope(q,q^n,N) annihilating L. Try
+#qFR1([seq(q^(i1^2),i1=1..10)],1,2,q,n,N);
+qFR1:=proc(L,deg1,ord1,q,n,N) local a,ope,var,i,j,eq,eq1,hal,i1,n1,lu,hal1,lu1:
+
+if nops(L)<= (ord1+1)*(deg1+2)+3  then
+ print(`The list is too short, it has `, nops(L), `terms but it should have at least`, (ord1+1)*(deg1+2)+3, `terms .` ):
+   RETURN(FAIL):
+fi:
+
+ope:=add(add(a[i,j]*(q^(n*i))*N^j,i=0..deg1),j=0..ord1):
+
+var:={seq(seq(a[i,j],i=0..deg1),j=0..ord1)}:
+
+eq:=expand({seq(add(subs(n=n1,coeff(ope,N,i1))*L[n1+i1],i1=0..ord1),n1=1..(ord1+1)*(deg1+1)+3  ) }):
+
+eq1:=subs(q=2,eq):
+
+hal:=solve(eq1,var):
+
+if expand(subs(hal,ope))=0 then
+  RETURN(FAIL):
+else
+print(`There is hope for a recurrence of order`, ord1, `and degree`, deg1):
+fi:
+
+
+hal:=solve(eq,var):
+if expand(subs(hal,ope))=0 then
+  RETURN(FAIL):
+fi:
+
+lu:={}:
+
+for hal1 in hal do
+if op(1,hal1)=op(2,hal1) then
+ lu:=lu union {op(1,hal1)}:
+fi:
+od:
+
+
+if nops(lu)>1 then
+ print(`Non unique solution`):
+ RETURN({seq(coeff(ope,lu1,1),lu1 in lu)}):
+fi:
+
+ope:=subs(hal,ope):
+
+ope:=subs(lu[1]=1,ope):
+
+if normal(expand({seq(add(subs(n=n1,coeff(ope,N,i1))*L[n1+i1],i1=0..ord1),n1=(ord1+1)*(deg1+1)+3..nops(L)-ord1   ) }))<>{0}  then
+ print(ope, `did not work out`):
+ RETURN(FAIL):
+fi:
+
+add(factor(coeff(ope,N,i1))*N^i1,i1=0..ord1):
+
+
+end:
+
+
+
+
+#qFR(L,q,n,N,C): inputs a list L of polynomials (or rational functions) in q, and non-negative integers
+# tries to find an operator ope(q,q^n,N) of degree deg1 and order ord1 such that deg1+ord1<=C
+#annihilating L. or returns FAIL. L must be at least of length (C+3)^2/4+4.  Try
+#qFR([seq(q^(i1^2),i1=1..10)],q,n,N,3);
+qFR:=proc(L,q,n,N,C) local ope, ord1,deg1,C1:
+
+if nops(L)< (C+3)^2/4+4 then
+ print(`L must be at least of length`,  trunc((C+3)^2/4+4)):
+ RETURN(FAIL):
+fi:
+
+for C1 from 1 to C do
+ for ord1 from 1 to C1 do
+    deg1:=C1-ord1:
+    ope:=qFR1(L,deg1,ord1,q,n,N):
+    if ope<>FAIL then
+      RETURN(ope):
+   fi:
+ od:
+od:
+
+FAIL:
+
+end:
+
+#Stat(F,t,K): Given a generating function F of t, for a r.v. finds the statistical information. Try:
+#Stat((1_t)^10000,4);
+Stat:=proc(F,t,K) local gu,mu,sd,k,f:
+f:=evalf(F/subs(t=1,F)):
+mu:=subs(t=1,diff(f,t)):
+gu:=[mu]:
+f:=f/t^mu:
+f:=t*diff(t*diff(f,t),t):
+sd:=sqrt(subs(t=1,f)):
+gu:=[op(gu),sd]:
+for k from 3 to K do
+ f:=t*diff(f,t):
+gu:=[op(gu),subs(t=1,f)/sd^k]:
+od:
+
+gu:
+
+
+end:
+
+ 
+#empir(gu,degx,degP,x,P) 
+#to "fit" an algebraic equation F(P(x),x)=0 of degree
+#degP in P(x) and degx in n for P(x):=sum_i gu[i]*x^i
+ 
+empir:=proc(gu,degx,degP,x,P)
+local i1,i2,F,a,cand,lu,eq,var,mu,flo,pip:
+if (1+degx)*(1+degP) > nops(gu)-3 then
+ RETURN(`sequence too small`):
+fi:
+ 
+F:=0:
+var:={}:
+for i1 from 0 to degx do
+ for i2 from 0 to degP do
+  F:=F+a[i1,i2]*x^i1*P^i2:
+  var:=var union {a[i1,i2]}:
+ od:
+od:
+ 
+cand:=0:
+ 
+for i1 from 0 to nops(gu)-1 do
+ cand:=cand+op(i1+1,gu)*x^i1:
+od:
+ 
+lu:=subs(P=cand,F):
+lu:=taylor(lu,x=0,nops(gu)-1):
+ 
+eq:={}:
+ 
+for i1 from 0 to nops(gu)-2 do
+eq:=eq union {coeff(lu,x,i1)=0}
+od:
+ 
+mu:=solve(eq,var):
+ 
+ 
+F:=subs(mu,F):
+ 
+if F=0 then
+ RETURN(0):
+fi:
+ 
+flo:=degree(F,P):
+pip:=coeff(F,P,flo):
+flo:=degree(pip,x):
+pip:=coeff(pip,x,flo):
+F:=F/pip:
+normal(F):
+end:
+
+
+#Empir(L,x,P): Guesses an algebraic equation
+Empir:=proc(gu,x,P)
+local degx,degP,L,lu,i:
+ 
+for L from 1 to (nops(gu)-3)/3 do
+for degP from 1 to L do
+for degx from 0 to min(trunc((nops(gu)-3)/(1+degP))-1,L-degP) do
+ 
+lu:=empir(gu,degx,degP,x,P):
+ 
+if lu<>0 then
+lu:=add(factor(coeff(lu,P,i))*P^i,i=0..degree(lu,P)):
+RETURN(lu):
+fi:
+od:
+od:
+od:
+0:
+end:
+ 
