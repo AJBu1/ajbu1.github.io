@@ -1,0 +1,35 @@
+read `qEW.txt`:
+
+print(`The list of length 21 whose i-th entry is the enumerating function`):
+print(`for the area under Motzkin paths of length i-1 is`):
+print(``):
+L:=qnwdK({[1,1],[1,-1],[1,0]}, 20,q):
+print(`L`):
+print(``):
+print(`Note: this gives us the following enumerating function for areas under Motzkin paths of length 0 through 20`):
+M:=add(L[i+1]*x^i,i=0..20);
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+
+print(`This can be used to test`):
+print(`the enumerating function for the areas under Motzkin Paths of length 0 through K`):
+print(`given by SeqF1`):
+SeqF1(1,x,x^2*q,q,x,20);
+print(``): print(``): print(`----------------------------`): print(`----------------------------`): print(``): print(``):
+print(`It can also be used to test`):
+print(`the k-th derivative with respect to q of M(x,q), where M(x,q) is the`):
+print(`bivariate weight enumerator for Motzkin paths of length n and area m,`):
+print(`evaluated at q=1`):
+print(`MotzDer:=DerK(1,x,x^2*q,q,x,15,f):`):
+MotzDer:=DerK(1,x,x^2*q,q,x,15,f):
+print(``): print(``): print(`----------------------------`): print(``): print(``):
+print(`For example:`): 
+print(`The Maclaurin polynomial of order 20 of the seventh entry of the list MotzDer`):
+print(`should be`):
+print(`the Maclaurin polynomial of order 20 of the sixth derivative with respect to q of M(x,q) `):
+print(`evaluated at q=1`):
+print(``):
+print(`The Maclaurin polynomial of order 20 of the seventh entry of the list MotzDer is`):
+add(coeff(taylor(MotzDer[7],x=0,24),x,i)*x^i,i=0..20);
+print(``):
+print(`which is indeed equal to the 6th derivative of M evaluated at q=1`):
+subs(q=1,diff(M,q,q,q,q,q,q));
